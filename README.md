@@ -1,3 +1,3 @@
-# crm_internacional_joyeria_relojes
+# crm_internacional_joyas_relojes
 
 Sistema de administración para joyerías
