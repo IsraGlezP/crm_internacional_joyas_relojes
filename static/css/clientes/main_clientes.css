@@ -1,0 +1,10 @@
+#user-image {
+	height: auto;
+  width: 100%;
+	/* even more control with max-width */
+  max-width: 200px;
+}
+
+#user-info th, td {
+	padding: 10px;
+}

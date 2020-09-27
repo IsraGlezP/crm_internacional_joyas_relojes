@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_variables %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/clientes/main_clientes.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-xl-12">
+		  <div class="card shadow mb-4">
+		    <div class="card-header py-3">
+		      <h3 class="m-0 font-weight-bold text-primary">Clientes</h3>
+		    </div>
+		    <div class="card-body">
+					<div class="row">
+						<div class="col-xl-3 col-md-6 mb-4">
+				      <div class="card border-left-primary shadow h-100 py-2">
+				        <div class="card-body">
+				          <div class="row no-gutters align-items-center">
+				            <div class="col mr-2">
+				              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Clientes Totales</div>
+				              <div class="h5 mb-0 font-weight-bold text-gray-800">122</div>
+				            </div>
+				            <div class="col-auto">
+				           		<i class="fas fa-user-friends fa-2x text-gray-300"></i>
+				            </div>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+					</div>
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="table-responsive">
+								<table class="table" id="tablaClientes">
+									<thead class="thead-dark">
+										<tr>
+											<th>Nombre</th>
+											<th>Correo</th>
+											<th>Teléfono</th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Pedrito Sola</td>
+											<td>pedrito@gmail.com</td>
+											<td>7223235798</td>
+											<td><input type="button" name="" value="Ver más" class="btn btn-success"></td>
+											<td><input type="button" name="" value="Eliminar" class="btn btn-danger"></td>
+										</tr>
+										<tr>
+											<td>Pedrito Sola</td>
+											<td>pedrito@gmail.com</td>
+											<td>7223235798</td>
+											<td><input type="button" name="" value="Ver más" class="btn btn-success"></td>
+											<td><input type="button" name="" value="Eliminar" class="btn btn-danger"></td>
+										</tr>
+										<tr>
+											<td>Pedrito Sola</td>
+											<td>pedrito@gmail.com</td>
+											<td>7223235798</td>
+											<td><input type="button" name="" value="Ver más" class="btn btn-success"></td>
+											<td><input type="button" name="" value="Eliminar" class="btn btn-danger"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<hr>
+					<div class="row">
+						<div class="col-xl-2">
+							<img src="{% static '/images/default-user-image.png' %}" alt="Imagen de usuario" id="user-image" class="img-thumbnail">
+						</div>
+						<div class="col-xl-6">
+							<div class="table-responsive-md">
+								<table id="user-info">
+									<tbody class="text-left">
+										<tr>
+											<th>Nombre: </th>
+											<td>Pedrito</td>
+										</tr>
+										<tr>
+											<th>Correo: </th>
+											<td>pedrito@gmail.com</td>
+										</tr>
+										<tr>
+											<th>Teléfono: </th>
+											<td>7223235708</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="table-responsive-md">
+								<table class="table">
+									<thead class="thead-light">
+										<tr>
+											<th>Pedido</th>
+											<th>Cantidad (Piezas)</th>
+											<th>Cantidad (Gramos)</th>
+											<th>Fecha</th>
+											<th>Total ($)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Anillo</td>
+											<td>2</td>
+											<td>22</td>
+											<td>30-09-2020</td>
+											<td>1234</td>
+										</tr>
+										<tr>
+											<td>Anillo</td>
+											<td>2</td>
+											<td>22</td>
+											<td>30-09-2020</td>
+											<td>1234</td>
+										</tr>
+										<tr>
+											<td>Anillo</td>
+											<td>2</td>
+											<td>22</td>
+											<td>30-09-2020</td>
+											<td>1234</td>
+										</tr>
+										<tr>
+											<td>Anillo</td>
+											<td>2</td>
+											<td>22</td>
+											<td>30-09-2020</td>
+											<td>1234</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts_variables %}
+	<script type="text/javascript" src="{% static '/js/clientes/main_clientes.js' %}"></script>
+{% endblock %}
