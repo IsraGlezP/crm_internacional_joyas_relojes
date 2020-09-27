@@ -1,5 +1,118 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
+{% block css_variables %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/Inventarios/main_inventarios.css' %}">
+{% endblock %}
+
 {% block content %}
-	<h1>ESTA VA A SER LA PÁGINA DE INVENTARIOS</h1>
+	<div class="row">
+		<div class="col-xl-12">
+		  <div class="card shadow mb-4">
+		    <div class="card-header py-3">
+		      <h3 class="m-0 font-weight-bold text-primary">Inventarios</h3>
+		    </div>
+		    <div class="card-body">
+		    	<div class="row justify-content-center">
+						<div class="col-xl-4 col-md-6 mb-4">
+				      <div class="card border-left-success shadow h-100 py-2">
+				        <div class="card-body">
+				          <div class="row no-gutters align-items-center">
+				            <div class="col mr-2">
+				              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Piezas Totales</div>
+				              <div class="h5 mb-0 font-weight-bold text-gray-800">1250</div>
+				            </div>
+				            <div class="col-auto">
+				            	<i class="far fa-gem fa-2x text-gray-300"></i>
+				            </div>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+				    <div class="col-xl-4 col-md-6 mb-4">
+				      <div class="card border-left-warning shadow h-100 py-2">
+				        <div class="card-body">
+				          <div class="row no-gutters align-items-center">
+				            <div class="col mr-2">
+				              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Gramajes Totales (gr)</div>
+				              <div class="h5 mb-0 font-weight-bold text-gray-800">1250</div>
+				            </div>
+				            <div class="col-auto">
+				            	<i class="fas fa-balance-scale fa-2x text-gray-300"></i>
+				            </div>
+				          </div>
+				        </div>
+				      </div>
+				    </div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-xl-8">
+							<input type="button" class="btn btn-primary" id="add-item" name="add-item" value="Agregar producto">
+						<!--   <a href="#" class="btn btn-primary btn-icon-split" id="add-item" style="width: 100%;">
+                <span class="text">Agregar nuevo producto</span>
+              </a> -->
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="table-responsive">
+								<table class="table" id="tablaInventarios">
+									<thead class="thead-dark">
+										<tr>
+											<th>Producto</th>
+											<th>Código de Barras</th>
+											<th>Categoria</th>
+											<th>Cantidad Piezas</th>
+											<th>Cantidad Gramaje</th>
+											<th></th>									
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Anillo de compromiso</td>
+											<td>1460987</td>
+											<td>Anillos</td>
+											<td>56</td>
+											<td>134</td>
+											<td><input type="button" class="btn btn-success" value="Editar"></td>
+										</tr>
+												<tr>
+											<td>Anillo de compromiso</td>
+											<td>1460987</td>
+											<td>Anillos</td>
+											<td>56</td>
+											<td>134</td>
+											<td><input type="button" class="btn btn-success" value="Editar"></td>
+										</tr>
+												<tr>
+											<td>Anillo de compromiso</td>
+											<td>1460987</td>
+											<td>Anillos</td>
+											<td>56</td>
+											<td>134</td>
+											<td><input type="button" class="btn btn-success" value="Editar"></td>
+										</tr>
+												<tr>
+											<td>Anillo de compromiso</td>
+											<td>1460987</td>
+											<td>Anillos</td>
+											<td>56</td>
+											<td>134</td>
+											<td><input type="button" class="btn btn-success" value="Editar"></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts_variables %}
+	<script type="text/javascript" src="{% static '/js/inventarios/main_inventarios.js' %}"></script>
 {% endblock %}

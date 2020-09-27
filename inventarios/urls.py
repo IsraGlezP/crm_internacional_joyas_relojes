@@ -4,5 +4,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.inventarios)
+    path('', views.inventarios),
+    path('inventarios/', views.inventarios, name='inventarios')
 ]

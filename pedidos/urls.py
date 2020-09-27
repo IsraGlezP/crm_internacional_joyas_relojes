@@ -4,5 +4,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.pedidos)
+    path('', views.pedidos),
+    path('pedidos/', views.pedidos, name='pedidos')
 ]

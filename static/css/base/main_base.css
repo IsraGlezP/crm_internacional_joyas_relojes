@@ -1,4 +1,9 @@
-#nombreNegocio {
-	font-family: serif;
+/*#nombreNegocio {
+	font-family: 'Trocchi';
+	color: #7c795d;
 	font-style: italic;
+}*/
+
+* {
+	font-family: sans-serif;
 }

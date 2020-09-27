@@ -1,9 +1,5 @@
 window.onload = () => {
 
-	$('#tablaClientes').DataTable({
-
-		responsive: true
-
-	});
+	$('#tablaClientes').DataTable();
    
 };
