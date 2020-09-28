@@ -1,5 +1,78 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
-	<h1>ESTA VA A SER LA PÁGINA DE PEDIDOS</h1>
+	<div class="row">
+		<div class="col-xl-12">
+		  <div class="card shadow mb-4">
+		    <div class="card-header py-3">
+		      <h3 class="m-0 font-weight-bold text-primary">Pedidos</h3>
+		    </div>
+		    <div class="card-body">
+		    	<div class="row">
+		    		<div class="col-xl-12">
+		    			<div class="table-responsive">
+		    				<table class="table" id="tablaPedidos">
+		    					<thead class="thead-dark">
+		    						<tr>
+		    							<th>Producto</th>
+		    							<th>Categoría</th>
+		    							<th>Cantidad Piezas</th>
+		    							<th>Cantidad Gramaje</th>
+		    							<th>Cliente</th>
+		    							<th>Método de pago</th>
+		    							<th>Total</th>
+		    						</tr>
+		    					</thead>
+		    					<tbody>
+		    						<tr>
+		    							<td>Anillo de matrimonio</td>
+		    							<td>Anillos</td>
+		    							<td>2</td>
+		    							<td>12.3</td>
+		    							<td>Pedrito Sola</td>
+		    							<td>Efectivo</td>
+		    							<td>1259.00</td>
+		    						</tr>
+		    								<tr>
+		    							<td>Anillo de matrimonio</td>
+		    							<td>Anillos</td>
+		    							<td>2</td>
+		    							<td>12.3</td>
+		    							<td>Pedrito Sola</td>
+		    							<td>Efectivo</td>
+		    							<td>1259.00</td>
+		    						</tr>
+		    								<tr>
+		    							<td>Collar de perrito</td>
+		    							<td>Collares</td>
+		    							<td>2</td>
+		    							<td>12.3</td>
+		    							<td>Pedrito Sola</td>
+		    							<td>Efectivo</td>
+		    							<td>1259.00</td>
+		    						</tr>
+		    								<tr>
+		    							<td>Reloj de arena</td>
+		    							<td>Relojes</td>
+		    							<td>2</td>
+		    							<td>12.3</td>
+		    							<td>Pedrito Sola</td>
+		    							<td>Efectivo</td>
+		    							<td>1259.00</td>
+		    						</tr>
+		    					</tbody>
+		    				</table>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block scripts_variables %}
+	<script type="text/javascript" src="{% static '/js/pedidos/main_pedidos.js' %}"></script>
 {% endblock %}

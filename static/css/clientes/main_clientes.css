@@ -8,3 +8,7 @@
 #user-info th, td {
 	padding: 10px;
 }
+
+#add-item {
+	width: 100%;
+}
