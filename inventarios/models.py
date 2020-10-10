@@ -29,9 +29,9 @@ class Vendor(models.Model):
 class Product(models.Model):
 	product_id = models.AutoField(primary_key=True)
 	category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
-	quantity = models.FloatField
+	quantity = models.FloatField(null=True)
 	unit_measurement_id = models.ForeignKey(UnitMeasurement, on_delete=models.CASCADE)
 	kilate_id = models.ForeignKey(Kilate, on_delete=models.CASCADE)
 	vendor_id = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-	barcode = models.BigIntegerField
+	barcode = models.BigIntegerField(null=True)
 
