@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css_variables %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/Inventarios/crud_productos.css' %}">
+{% endblock %}
+
+{% block content %}
+	
+	<div class="row">
+		<div class="col-xl-12">
+		  <div class="card shadow mb-4">
+		    <div class="card-header py-3">
+		      <h3 class="m-0 font-weight-bold text-primary">Agrega Producto</h3>
+		    </div>
+		    <div class="card-body">
+		    	<div class="row">
+		    		<div class="col-xl-12">
+		    			<div id="mensajes">
+			    			{% if messages %}
+									{% for message in messages %}
+										<div id="snackbar">{{ message }}</div>
+									{% endfor %}
+								{% endif %}
+		    			</div>
+		    			<form method="POST" id="agrega-producto">
+		    				{% csrf_token %}
+		    				<div class="row justify-content-center">
+		    					<div class="col-xl-6">
+		    						<div class="form-group">
+			    						<label for="exampleInputEmail1">Categoría</label>
+			    						{{ form.category }}
+		    						</div>
+		    					</div>
+		    				</div>
+		    				<div class="row justify-content-center">
+		    					<div class="col-xl-6">
+		    						<div class="form-group">
+				    					<label for="exampleInputEmail1">Cantidad</label>
+				    					{{ form.quantity }}
+		    						</div>
+		    					</div>
+		    				</div>
+		    				<div class="row justify-content-center">
+		    					<div class="col-xl-6">
+		    						<div class="form-group">
+				    					<label for="exampleInputEmail1">Unidad de Medida</label>
+				    					{{ form.unit_measurement }}
+		    						</div>
+		    					</div>
+		    				</div>
+		    				<div class="row justify-content-center">
+		    					<div class="col-xl-6">
+		    						<div class="form-group">
+				    					<label for="exampleInputEmail1">Kilataje</label>
+				    					{{ form.kilate }}
+		    						</div>
+		    					</div>
+		    				</div>
+		    				<div class="row justify-content-center">
+		    					<div class="col-xl-6">
+		    						<div class="form-group">
+				    					<label for="exampleInputEmail1">Proveedor</label>
+				    					{{ form.vendor }}
+		    						</div>
+		    					</div>
+		    				</div>
+		    				<div class="row justify-content-center">
+		    					<div class="col-xl-6">
+		    						<div class="form-group">
+				    					<label for="exampleInputEmail1">Código de Barras</label>
+				    					{{ form.barcode }}
+		    						</div>
+		    					</div>
+		    				</div>
+		    				<div class="row justify-content-center">
+		    					<div class="col-xl-6">
+		    						<div class="form-group">
+				    					<input type="submit" class="btn btn-success" value="Guardar">
+		    						</div>
+		    					</div>
+		    				</div>
+		    			</form>
+		    		</div>
+		    	</div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+	
+{% endblock %}
+
+{% block scripts_variables %}
+	<script type="text/javascript" src="{% static '/js/inventarios/crud_productos.js' %}"></script>
+{% endblock %}

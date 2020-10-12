@@ -2,12 +2,10 @@ window.onload = () => {
 
 	$('#tablaInventarios').DataTable();
 
+	// Le agregamos la clase form-control a todos los elementos del form de filtros
 	const formElements = document.getElementById('filtros').elements;
-	console.log(formElements)
 	for (var i = 0; i < formElements.length; i++) {
-		console.log(formElements[i].nodeName)
 		formElements[i].classList.add('form-control')
-		// if (formElements[i].nodeName === 'SELECT') formElements[i].classList.add('form-control')
 	}
    
 };
