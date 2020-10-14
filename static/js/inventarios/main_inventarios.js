@@ -1,11 +1,36 @@
-window.onload = () => {
 
-	$('#tablaInventarios').DataTable();
 
-	// Le agregamos la clase form-control a todos los elementos del form de filtros
-	const formElements = document.getElementById('filtros').elements;
-	for (var i = 0; i < formElements.length; i++) {
-		formElements[i].classList.add('form-control')
+var tablaInventarios = $('#tablaInventarios').DataTable();
+
+// Le agregamos la clase form-control a todos los elementos del form de filtros
+const formElements = document.getElementById('filtros').elements;
+for (var i = 0; i < formElements.length; i++) {
+	formElements[i].classList.add('form-control')
+}
+
+	// Función para colocar la info del producto que se quiere eliminar en el modal
+	// $('#tablaInventarios body').on( 'click', '.eliminar-producto', function () {
+ //    var index =  $(this).closest('tr').index();
+ //    var data_array = tablaInventarios.row(index).data();
+ //    console.log(index);
+ //    console.log(data_array)
+    
+ //    // Colocamos los campos del item en el modal
+
+	// });
+
+const eliminarProductoModal = (product_id) => {
+	var data_array = tablaInventarios.row(product_id-1).data();
+
+	var columnasOmitir = 2;
+	var encabezados = ['Categoría:', 'Cantidad:', 'Unidad de Medida:', 'Kilataje:', 'Proveedor:', 'Código de Barras:']
+	var modalBody = "<table class='table table-striped text-left'>";
+	for (var i = 0; i < data_array.length - columnasOmitir; i++) {
+		modalBody = modalBody + '<tr><th>'+encabezados[i]+'</th><td>'+data_array[i]+'</td></tr>';
 	}
-   
-};
+	modalBody = modalBody + '</table>';
+
+	$('#eliminaModal .modal-body').html(modalBody);
+
+	$('#elimina_producto_form').attr('action', "elimina_producto/"+product_id);
+}
