@@ -38,14 +38,25 @@ class Vendor(models.Model):
 	def __str__(self):
 		return self.name
 
+class Barcode(models.Model):
+	barcode_id = models.AutoField(primary_key=True)
+	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	kilate = models.ForeignKey(Kilate, on_delete=models.CASCADE)
+	barcode = models.IntegerField()
+
+	def __str__(self):
+		category_kilate_barcode = self.category.name + '_' + self.kilate.name + '_' + str(self.barcode)
+		str_barcode = str(self.barcode)
+		return str_barcode
+
 class Product(models.Model):
 	product_id = models.AutoField(primary_key=True)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 	quantity = models.FloatField(null=True)
 	unit_measurement = models.ForeignKey(UnitMeasurement, on_delete=models.CASCADE)
 	kilate = models.ForeignKey(Kilate, on_delete=models.CASCADE)
-	vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-	barcode = models.BigIntegerField(null=True)
+	vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True)
+	barcode = models.ForeignKey(Barcode, on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
 		category_kilate = self.category.name + '_' + self.kilate.name

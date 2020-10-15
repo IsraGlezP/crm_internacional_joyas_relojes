@@ -33,8 +33,36 @@ def agrega_producto(request):
 	if request.method == 'POST':
 		form = ProductForm(request.POST)
 		if form.is_valid():
-			form.save()
-			messages.success(request, 'Producto Agregado')
+			id_categoria = request.POST['category']
+			nombre_categoria = Category.objects.get(category_id=id_categoria)
+			cantidad = request.POST['quantity']
+			id_unidad_medida = request.POST['unit_measurement']
+			unidad_medida = UnitMeasurement.objects.get(unit_measurement_id=id_unidad_medida)
+			id_kilataje = request.POST['kilate']
+			kilataje = Kilate.objects.get(kilate_id=id_kilataje)
+			id_proveedor = request.POST['vendor']
+			proveedor = Vendor.objects.get(vendor_id=id_proveedor)
+			codigo_barras = request.POST['barcode']
+
+			producto, creado = Product.objects.update_or_create(
+				category=id_categoria, 
+				unit_measurement=id_unidad_medida, 
+				kilate=id_kilataje, 
+				vendor=id_proveedor,
+				defaults = {
+					'category': nombre_categoria,
+					'quantity': cantidad,
+					'unit_measurement': unidad_medida,
+					'kilate': kilataje,
+					'vendor': proveedor, 
+					'barcode': codigo_barras
+				}
+			)
+
+			if creado:
+				messages.success(request, 'Producto Agregado')
+			else:
+				messages.success(request, 'Producto Actualizado')
 
 	contexto = {'form': form}
 	return render(request, 'inventarios/producto_form.html', contexto)

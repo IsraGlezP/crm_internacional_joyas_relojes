@@ -7,5 +7,6 @@ admin.site.register(Category)
 admin.site.register(UnitMeasurement)
 admin.site.register(Kilate)
 admin.site.register(Vendor)
+admin.site.register(Barcode)
 admin.site.register(Product)
 
