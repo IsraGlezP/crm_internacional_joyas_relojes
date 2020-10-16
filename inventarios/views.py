@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Sum
 from django.contrib import messages
+from django.http import JsonResponse
 
 from .models import *
 from .filters import ProductFilter
@@ -88,6 +89,26 @@ def elimina_producto(request, pk):
 		producto.delete()
 		messages.success(request, 'Producto Eliminado')
 		return redirect('inventarios')
+
+def busca_codigo_barras(request, category, kilate):
+	if request.method == 'GET':
+		id_categoria = category
+		id_kilataje = kilate
+
+		try:
+			codigo_barras = Barcode.objects.get(
+				category=id_categoria,
+				kilate=id_kilataje
+			)
+			print('codigo barras: ', codigo_barras)
+			data = {'barcode': codigo_barras.barcode}
+		except Barcode.DoesNotExist:
+			data = {'barcode': None}
+		
+		return JsonResponse(data)
+
+
+
 
 
 

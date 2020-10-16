@@ -39,10 +39,9 @@ class Vendor(models.Model):
 		return self.name
 
 class Barcode(models.Model):
-	barcode_id = models.AutoField(primary_key=True)
+	barcode = models.IntegerField(primary_key=True)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
 	kilate = models.ForeignKey(Kilate, on_delete=models.CASCADE)
-	barcode = models.IntegerField()
 
 	def __str__(self):
 		category_kilate_barcode = self.category.name + '_' + self.kilate.name + '_' + str(self.barcode)

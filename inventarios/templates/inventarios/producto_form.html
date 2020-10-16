@@ -88,6 +88,48 @@
 		  </div>
 		</div>
 	</div>
+
+	<!-- Modal Agregar Codigo de Barras -->
+	<div class="modal fade" id="agregaCodigoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Agregar Código de Barras</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	{% csrf_token %}
+	      <form method="POST">
+		      <div class="modal-body">
+		      	<div class="row">
+		      		<div class="col-xl-12" id="mensaje-codigo-barras">
+		      			<p class="h5 text-center"></p>
+		      		</div>
+		      	</div>
+		      	<div class="row">
+		      		<div class="col-xl-12">
+		      			<p class="h6 text-center">Lo puede agregar a continuación</p>
+		      		</div>
+		      	</div>
+		      	<br>
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="form-group">
+	    						<label for="nuevo-codigo-barras">Código de Barras</label>
+	    						<input type="number" id="nuevo-codigo-barras" class="form-control">
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
 	
 {% endblock %}
 
