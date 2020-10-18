@@ -6,7 +6,7 @@ from django.http import JsonResponse
 
 from .models import *
 from .filters import ProductFilter
-from .forms import ProductForm
+from .forms import *
 
 # Create your views here.
 def inventarios(request):
@@ -107,6 +107,47 @@ def busca_codigo_barras(request, category, kilate):
 		
 		return JsonResponse(data)
 
+def alta_productos(request):
+	product_form = ProductForm()
+	cantidad_filas = range(10)
+	cantidad_columnas = range(6)
+	contexto = {'cantidad_filas': cantidad_filas, 'cantidad_columnas': cantidad_columnas, 'product_form': product_form}
+	return render(request, 'inventarios/alta_productos.html', contexto)
+
+def alta_categorias(request):
+	if request.is_ajax():
+		form = request.POST;
+		print('form original: ', form)
+		print('form kepedo: ', form['name'])
+
+		categorias = []
+		for key in request.POST:  # "for key in request.GET" works too.
+			if key == 'name':
+				valuelist = request.POST.getlist(key)
+				categorias.extend(['%s' % (val) for val in valuelist])
+
+		ninguna_categoria_encontrada = 0
+		categorias_para_agregar = []
+		for categoria in categorias:
+			try:
+				categoria_encontrada = Category.objects.get(name__iexact=categoria)
+				mensaje = {'mensaje': 'La categoría '+categoria_encontrada.name+' ya existe, favor de omitirla', 'bandera': 0}
+				response = JsonResponse(mensaje)
+				categorias_para_agregar = []
+				return response
+			except Category.DoesNotExist:
+				ninguna_categoria_encontrada = 1
+				categoria_nueva = Category(name=categoria)
+				categorias_para_agregar.append(categoria_nueva)
+				mensaje = {'mensaje': 'Categorias agregadas exitosamente', 'bandera': 1}
+				response = JsonResponse(mensaje)
+
+		if ninguna_categoria_encontrada == 1:
+			Category.objects.bulk_create(categorias_para_agregar)
+			return response
+
+		response = JsonResponse({'mensaje': 'algo tronó no puede ser'})
+		return response
 
 
 

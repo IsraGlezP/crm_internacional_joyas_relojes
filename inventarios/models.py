@@ -5,9 +5,10 @@ from django.db import models
 class Category(models.Model):
 	category_id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=50)
+
 	class Meta:
 		db_table = 'categories'
-		verbose_name = 'categorie'
+		verbose_name_plural = 'categories'
 
 	def __str__(self):
 		return self.name
@@ -15,9 +16,11 @@ class Category(models.Model):
 class UnitMeasurement(models.Model):
 	unit_measurement_id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=10)
+
 	class Meta:
 		db_table = 'units_measurements'
-		verbose_name = 'units Measurement'
+		verbose_name = 'unit Measurement'
+		verbose_name_plural = 'units Measurements'
 
 	def __str__(self):
 		return self.name
@@ -51,11 +54,11 @@ class Barcode(models.Model):
 class Product(models.Model):
 	product_id = models.AutoField(primary_key=True)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
+	kilate = models.ForeignKey(Kilate, on_delete=models.CASCADE)
+	barcode = models.ForeignKey(Barcode, on_delete=models.CASCADE, null=True)
 	quantity = models.FloatField(null=True)
 	unit_measurement = models.ForeignKey(UnitMeasurement, on_delete=models.CASCADE)
-	kilate = models.ForeignKey(Kilate, on_delete=models.CASCADE)
 	vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE, null=True)
-	barcode = models.ForeignKey(Barcode, on_delete=models.CASCADE, null=True)
 
 	def __str__(self):
 		category_kilate = self.category.name + '_' + self.kilate.name

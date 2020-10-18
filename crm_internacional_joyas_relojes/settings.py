@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'inventarios',
     'pedidos',
     'ventas',
-    'django_filters'
+    'django_filters',
+    'widget_tweaks'
 ]
 
 MIDDLEWARE = [

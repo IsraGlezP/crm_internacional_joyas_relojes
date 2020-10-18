@@ -86,11 +86,11 @@
 									<thead class="thead-dark">
 										<tr>
 											<th>Categoría</th>
+											<th>Kilataje</th>
+											<th>Código de Barras</th>
 											<th>Cantidad</th>
 											<th>Unidad de Medida</th>
-											<th>Kilataje</th>
 											<th>Proveedor</th>
-											<th>Código de Barras</th>
 											<th></th>
 											<th></th>							
 										</tr>
@@ -99,11 +99,11 @@
 										{% for product in products %}
 											<tr>
 												<td>{{ product.category }}</td>
+												<td>{{ product.kilate }}</td>
+												<td>{{ product.barcode }}</td>
 												<td>{{ product.quantity }}</td>
 												<td>{{ product.unit_measurement }}</td>
-												<td>{{ product.kilate }}</td>
 												<td>{{ product.vendor }}</td>
-												<td>{{ product.barcode }}</td>
 												<td>
 														<a href="{% url 'actualiza_producto' product.product_id %}" class="btn btn-outline-success">Editar</a>
 												</td>

@@ -1,0 +1,325 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block css_variables %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/inventarios/alta_productos.css' %}">
+{% endblock %}
+
+{% block content %}
+	
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card shadow mb-4">
+		    <div class="card-header py-3">
+		      <h3 class="m-0 font-weight-bold text-primary">Alta Productos</h3>
+		    </div>
+		    <div class="card-body">
+		    	<!-- Div con los mensajes que envía el servidor -->
+					<div id="snackbar"></div>
+    			<!-- Termina div con los mensajes que envía el servidor -->
+
+		    	<!-- Botones para agregar distintos elementos -->
+		    	<div class="row">
+		    		<!-- Botón para agregar categoría -->
+		    		<div class="col-xl-3">
+		    			<button type="button" class="btn btn-outline-success boton-agregar" id="boton-agregar-categoria">Agregar Categoría</button>
+		    		</div>
+		    		<!-- Botón para agregar kilataje -->
+		    		<div class="col-xl-3">
+		    			<button type="button" class="btn btn-outline-warning boton-agregar" id="boton-agregar-kilataje">Agregar Kilataje</button>
+		    		</div>
+		    		<!-- Botón para agregar unidad de medida -->
+		    		<div class="col-xl-3">
+		    			<button type="button" class="btn btn-outline-info boton-agregar" id="boton-agregar-unidad">Agregar Unidad de Medida</button>
+		    		</div>
+		    		<!-- Botón para agregar proveedor -->
+		    		<div class="col-xl-3">
+		    			<button type="button" class="btn btn-outline-primary boton-agregar" id="boton-agregar-proveedor">Agregar Proveedor</button>
+		    		</div>
+		    	</div>
+		    	<!-- Termina botones para agregar distintos elementos -->
+
+		    	<br>
+
+		    	<!-- Tabla para agregar productos -->
+		    	<div class="row">
+		    		<div class="col-xl-12">
+				    	<div class="table-responsive">
+								<table class="table" id="tabla-alta-productos">
+									<thead>
+										<tr>
+											<th>Categoría</th>
+											<th>Kilataje</th>
+											<th>Código de Barras</th>
+											<th>Cantidad</th>
+											<th>Unidad de Medida</th>
+											<th>Proveedor</th>				
+										</tr>
+									</thead>
+									<tbody>
+										{% for i in cantidad_filas %}
+										<tr>											
+											<td>{% render_field product_form.category class="form-control" %}</td>
+											<td>{% render_field product_form.kilate class="form-control" %}</td>
+											<td>
+												<input type="text" disabled="true" class="form-control">
+											</td>
+											<td>{% render_field product_form.quantity class="form-control" %}</td>
+											<td>{% render_field product_form.unit_measurement class="form-control" %}</td>
+											<td>{% render_field product_form.vendor class="form-control" %}</td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+				    	</div>
+		    		</div>
+		    	</div>
+		    	<!-- Termina tabla para agregar productos -->
+		    </div>
+		  </div>
+		</div>
+	</div>
+
+	<!-- Modal agrega categoría -->
+	<div class="modal fade" id="agrega-categoria-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-success">
+	        <h5 class="modal-title text-white font-weight-bold">Agregar Categorías</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form method="POST" id="form-categoria">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table" id="tabla-alta-categorias" style="width: 100%;">
+    								<thead>
+    									<tr>
+    										<th>Ingrese el nombre de las categorías que desea agregar</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									{% for i in cantidad_filas %}
+    									<tr>
+    										<td>
+    											<input type="text" id="fila-categoria-{{ i }}" class="form-control border-bottom-success" name="name">
+    										</td>
+    									</tr>
+    									{% endfor %}
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-categoria">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal agrega categoría -->
+
+	<!-- Modal agrega kilataje -->
+	<div class="modal fade" id="agrega-kilataje-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-warning">
+	        <h5 class="modal-title text-white font-weight-bold">Agregar Kilatajes</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form method="POST" id="form-kilataje">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table" id="tabla-alta-kilatajes">
+    								<thead>
+    									<tr>
+    										<th>Ingrese los kilatajes que desea agregar</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									{% for i in cantidad_filas %}
+    									<tr>
+    										<td>
+    											<input type="text" id="fila-kilataje-{{ i }}" class="form-control border-bottom-warning" name="name">
+    										</td>
+    									</tr>
+    									{% endfor %}
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-kilataje">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal agrega kilataje -->
+
+	<!-- Modal agrega unidad de medida -->
+	<div class="modal fade" id="agrega-unidad-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-info">
+	        <h5 class="modal-title text-white font-weight-bold">Agregar Unidades de Medida</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	<form method="POST" id="form-unidad">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table" id="tabla-alta-unidades">
+    								<thead>
+    									<tr>
+    										<th>Ingrese las unidades de medida que desea agregar</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									{% for i in cantidad_filas %}
+    									<tr>
+    										<td>
+    											<input type="text" id="fila-unidad-{{ i }}" class="form-control border-bottom-info" name="name">
+    										</td>
+    									</tr>
+    									{% endfor %}
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-unidad">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal agrega unidad de medida -->
+
+	<!-- Modal agrega proveedor -->
+	<div class="modal fade" id="agrega-proveedor-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-primary">
+	        <h5 class="modal-title text-white font-weight-bold">Agregar Proveedor</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	<form method="POST" id="form-proveedor">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<p class="h6">Ingrese los siguientes campos para agregar a un proveedor</p>
+    							<table class="table table-striped" id="tabla-alta-proveedores">
+    								<thead class="text-left">
+    									<tr>
+    										<th>Nombre</th>
+    										<th>Teléfono</th>
+    										<th>Correo</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									{% for i in cantidad_filas %}
+    									<tr>
+    										<td>
+    											<input type="text" id="fila-proveedor-nombre-{{ i }}" class="form-control border-bottom-primary" name="name" placeholder="Nombre...">
+    										</td>
+    										<td>
+    											<input type="tel" id="fila-proveedor-telefono-{{ i }}" class="form-control border-bottom-primary" name="phone" placeholder="Teléfono...">
+    										</td>
+    										<td>
+    											<input type="email" id="fila-proveedor-direccion-{{ i }}" class="form-control border-bottom-primary" name="direction" placeholder="Correo...">
+    										</td>
+    									</tr>
+    									{% endfor %}
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-proveedor">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal agrega proveedor -->
+
+	<!-- Modal agregar codigo de barras -->
+	<div class="modal fade" id="agregaCodigoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Agregar Código de Barras</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	{% csrf_token %}
+	      <form method="POST">
+		      <div class="modal-body">
+		      	<div class="row">
+		      		<div class="col-xl-12" id="mensaje-codigo-barras">
+		      			<p class="h5 text-center"></p>
+		      		</div>
+		      	</div>
+		      	<div class="row">
+		      		<div class="col-xl-12">
+		      			<p class="h6 text-center">Lo puede agregar a continuación</p>
+		      		</div>
+		      	</div>
+		      	<br>
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="form-group">
+	    						<label for="nuevo-codigo-barras">Código de Barras</label>
+	    						<input type="number" id="nuevo-codigo-barras" class="form-control">
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal agregar codigo de barras -->
+	
+{% endblock %}
+
+{% block scripts_variables %}
+<script type="text/javascript" src="{% static '/js/inventarios/alta_productos.js' %}"></script>
+{% endblock %}
