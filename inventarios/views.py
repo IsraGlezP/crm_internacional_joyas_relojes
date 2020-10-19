@@ -107,21 +107,32 @@ def busca_codigo_barras(request, category, kilate):
 		
 		return JsonResponse(data)
 
-def alta_productos(request):
+def administrar_catalogos(request):
+	categorias = Category.objects.all()
+	kilatajes = Kilate.objects.all()
+	unidades = UnitMeasurement.objects.all()
+	proveedores = Vendor.objects.all()
+	codigos = Barcode.objects.all()
 	product_form = ProductForm()
 	cantidad_filas = range(10)
 	cantidad_columnas = range(6)
-	contexto = {'cantidad_filas': cantidad_filas, 'cantidad_columnas': cantidad_columnas, 'product_form': product_form}
-	return render(request, 'inventarios/alta_productos.html', contexto)
+	contexto = {
+		'cantidad_filas': cantidad_filas, 
+		'cantidad_columnas': cantidad_columnas, 
+		'product_form': product_form, 
+		'categorias': categorias,
+		'kilatajes': kilatajes,
+		'unidades': unidades,
+		'proveedores': proveedores,
+		'codigos': codigos}
+	return render(request, 'inventarios/administrar_catalogos.html', contexto)
 
 def alta_categorias(request):
 	if request.is_ajax():
-		form = request.POST;
-		print('form original: ', form)
-		print('form kepedo: ', form['name'])
+		form = request.POST
 
 		categorias = []
-		for key in request.POST:  # "for key in request.GET" works too.
+		for key in request.POST:
 			if key == 'name':
 				valuelist = request.POST.getlist(key)
 				categorias.extend(['%s' % (val) for val in valuelist])
@@ -139,15 +150,187 @@ def alta_categorias(request):
 				ninguna_categoria_encontrada = 1
 				categoria_nueva = Category(name=categoria)
 				categorias_para_agregar.append(categoria_nueva)
-				mensaje = {'mensaje': 'Categorias agregadas exitosamente', 'bandera': 1}
-				response = JsonResponse(mensaje)
 
 		if ninguna_categoria_encontrada == 1:
 			Category.objects.bulk_create(categorias_para_agregar)
+			mensaje = {'mensaje': 'Categorias agregadas exitosamente', 'bandera': 1}
+			response = JsonResponse(mensaje)
 			return response
 
-		response = JsonResponse({'mensaje': 'algo tronó no puede ser'})
+		response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
 		return response
+
+def alta_kilatajes(request):
+	if request.is_ajax():
+		form = request.POST
+
+	kilatajes = []
+	for key in request.POST:
+		if key == 'name':
+			valuelist = request.POST.getlist(key)
+			kilatajes.extend(['%s' % (val) for val in valuelist])
+
+	ningun_kilataje_encontrado = 0
+	kilatajes_para_agregar = []
+	for kilataje in kilatajes:
+		try:
+			kilataje_encontrado = Kilate.objects.get(name__iexact=kilataje)
+			mensaje = {'mensaje': 'El kilataje '+kilataje_encontrado.name+' ya existe, favor de omitirlo', 'bandera': 0}
+			response = JsonResponse(mensaje)
+			kilatajes_para_agregar = []
+			return response
+		except Kilate.DoesNotExist:
+			ningun_kilataje_encontrado = 1
+			kilataje_nuevo = Kilate(name=kilataje)
+			kilatajes_para_agregar.append(kilataje_nuevo)
+
+	if ningun_kilataje_encontrado == 1:
+		Kilate.objects.bulk_create(kilatajes_para_agregar)
+		mensaje = {'mensaje': 'Kilatajes agregados exitosamente', 'bandera': 1}
+		response = JsonResponse(mensaje)
+		return response
+
+	response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
+	return response
+
+def alta_unidades(request):
+	if request.is_ajax():
+		form = request.POST
+
+	unidades = []
+	for key in request.POST:
+		if key == 'name':
+			valuelist = request.POST.getlist(key)
+			unidades.extend(['%s' % (val) for val in valuelist])
+
+	ninguna_unidad_encontrada = 0
+	unidades_para_agregar = []
+	for unidad in unidades:
+		try:
+			unidad_encontrada = UnitMeasurement.objects.get(name__iexact=unidad)
+			mensaje = {'mensaje': 'La unidad de medida '+unidad_encontrada.name+' ya existe, favor de omitirla', 'bandera': 0}
+			response = JsonResponse(mensaje)
+			unidades_para_agregar = []
+			return response
+		except UnitMeasurement.DoesNotExist:
+			ninguna_unidad_encontrada = 1
+			unidad_nueva = UnitMeasurement(name=unidad)
+			unidades_para_agregar.append(unidad_nueva)
+
+	if ninguna_unidad_encontrada == 1:
+		UnitMeasurement.objects.bulk_create(unidades_para_agregar)
+		mensaje = {'mensaje': 'Unidades de medida agregadas exitosamente', 'bandera': 1}
+		response = JsonResponse(mensaje)
+		return response
+
+	response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
+	return response
+
+def alta_proveedores(request):
+	if request.is_ajax():
+		form = request.POST
+
+	nombres = []
+	telefonos = []
+	direcciones = []
+	for key in request.POST:
+		if key == 'name':
+			valuelist = request.POST.getlist(key)
+			nombres.extend(['%s' % (val) for val in valuelist])
+		elif key == 'phone':
+			valuelist = request.POST.getlist(key)
+			telefonos.extend(['%s' % (val) for val in valuelist])
+		elif key == 'address':
+			valuelist = request.POST.getlist(key)
+			direcciones.extend(['%s' % (val) for val in valuelist])
+
+	ningun_proveedor_encontrado = 0
+	proveedores_para_agregar = []
+	indice = 0
+	for nombre in nombres:
+		print('NOMBRE: ', nombre)
+		print('TELEFONO: ', telefonos[indice])
+		print('DIRECCION: ', direcciones[indice])
+		try:
+			proveedor_encontrado = Vendor.objects.get(name__iexact=nombre)
+			mensaje = {'mensaje': 'El proveedor '+proveedor_encontrado.name+' ya existe, favor de omitirlo', 'bandera': 0}
+			response = JsonResponse(mensaje)
+			proveedores_para_agregar = []
+			return response
+		except Vendor.DoesNotExist:
+			ningun_proveedor_encontrado = 1
+			proveedor_nuevo = Vendor(name=nombre, phone=telefonos[indice], address=direcciones[indice])
+			proveedores_para_agregar.append(proveedor_nuevo)
+		indice += 1
+
+	if ningun_proveedor_encontrado == 1:
+		Vendor.objects.bulk_create(proveedores_para_agregar)
+		mensaje = {'mensaje': 'Proveedores agregados exitosamente', 'bandera': 1}
+		response = JsonResponse(mensaje)
+		return response
+
+	response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
+	return response
+
+def alta_codigos(request):
+	if request.is_ajax():
+		form = request.POST
+
+	categorias = []
+	kilatajes = []
+	codigos = []
+	for key in request.POST:
+		if key == 'category':
+			valuelist = request.POST.getlist(key)
+			categorias.extend(['%s' % (val) for val in valuelist])
+		elif key == 'kilate':
+			valuelist = request.POST.getlist(key)
+			kilatajes.extend(['%s' % (val) for val in valuelist])
+		elif key == 'barcode':
+			valuelist = request.POST.getlist(key)
+			codigos.extend(['%s' % (val) for val in valuelist])
+
+	ningun_codigo_encontrado = 0
+	codigos_para_agregar = []
+	indice = 0
+	for codigo in codigos:
+		# print('CATEGORIA: ', categorias[indice])
+		# print('KILATAJE: ', kilatajes[indice])
+		# print('CÓDIGO: ', codigo)
+		try:
+			codigo_encontrado = Barcode.objects.get(category=categorias[indice], kilate=kilatajes[indice])
+			# print('KE ENCONTRÓ: ', codigo_encontrado)
+			mensaje = {
+			'mensaje': 'Ya existe código de barras para '
+			+str(codigo_encontrado.category)+' - '
+			+str(codigo_encontrado.kilate)+
+			', favor de omitirlo', 'bandera': 0}
+			response = JsonResponse(mensaje)
+			codigos_para_agregar = []
+			return response
+		except Barcode.DoesNotExist as e:
+			try:
+				codigo_encontrado = Barcode.objects.get(category=categorias[indice],  kilate=kilatajes[indice], barcode=codigo)
+				mensaje = {'mensaje': 'El código de barras '+str(codigo_encontrado.barcode)+' ya existe, favor de omitirlo', 'bandera': 0}
+				response = JsonResponse(mensaje)
+				codigos_para_agregar = []
+				return response
+			except Barcode.DoesNotExist:
+				ningun_codigo_encontrado = 1
+				nombre_categoria = Category.objects.get(category_id=categorias[indice])
+				nombre_kilataje = Kilate.objects.get(kilate_id=kilatajes[indice])
+				codigo_nuevo = Barcode(category=nombre_categoria, kilate=nombre_kilataje, barcode=codigo)
+				codigos_para_agregar.append(codigo_nuevo)
+		indice += 1
+
+	if ningun_codigo_encontrado == 1:
+		Barcode.objects.bulk_create(codigos_para_agregar)
+		mensaje = {'mensaje': 'Códigos de Barras agregados exitosamente', 'bandera': 1}
+		response = JsonResponse(mensaje)
+		return response
+
+	response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
+	return response
 
 
 
