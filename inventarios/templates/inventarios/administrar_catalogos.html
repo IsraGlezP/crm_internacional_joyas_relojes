@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 
 {% block css_variables %}
-<link rel="stylesheet" type="text/css" href="{% static '/css/inventarios/alta_productos.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static '/css/inventarios/administrar_catalogos.css' %}">
 <!-- Latest compiled and minified CSS Selectpicker-->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 {% endblock %}
@@ -26,11 +26,11 @@
 		    	<div class="row">
 		    		<!-- Botón para agregar categoría -->
 		    		<div class="col-xl-6">
-		    			<button type="button" class="btn btn-outline-success boton-agregar" id="boton-agregar-categoria">Agregar Categorías</button>
+		    			<button type="button" class="btn btn-success boton-agregar" id="boton-agregar-categoria">Agregar Categorías</button>
 		    		</div>
 		    		<!-- Botón para agregar kilataje -->
 		    		<div class="col-xl-6">
-		    			<button type="button" class="btn btn-outline-warning boton-agregar" id="boton-agregar-kilataje">Agregar Kilatajes</button>
+		    			<button type="button" class="btn btn-warning boton-agregar" id="boton-agregar-kilataje">Agregar Kilatajes</button>
 		    		</div>
 		    	</div>
 
@@ -39,11 +39,11 @@
 		    	<div class="row">
 		    		<!-- Botón para agregar códigos de barras -->
 		    		<div class="col-xl-6">
-		    			<button type="button" class="btn btn-outline-secondary boton-agregar" id="boton-agregar-codigo">Agregar Códigos de Barras</button>
+		    			<button type="button" class="btn btn-secondary boton-agregar" id="boton-agregar-codigo">Agregar Códigos de Barras</button>
 		    		</div>
 		    		<!-- Botón para agregar unidad de medida -->
 		    		<div class="col-xl-6">
-		    			<button type="button" class="btn btn-outline-info boton-agregar" id="boton-agregar-unidad">Agregar Unidades de Medida</button>
+		    			<button type="button" class="btn btn-info boton-agregar" id="boton-agregar-unidad">Agregar Unidades de Medida</button>
 		    		</div>
 		    	</div>
 
@@ -52,29 +52,37 @@
 		    	<div class="row justify-content-center">
 		    		<!-- Botón para agregar proveedor -->
 		    		<div class="col-xl-6">
-		    			<button type="button" class="btn btn-outline-primary boton-agregar" id="boton-agregar-proveedor">Agregar Proveedores</button>
+		    			<button type="button" class="btn btn-primary boton-agregar" id="boton-agregar-proveedor">Agregar Proveedores</button>
 		    		</div>
 		    	</div>
 		    	<!-- Termina botones para agregar distintos elementos -->
-
+					
+					<hr>
 		    	<br>
 
-		    	
 		    	<div class="row">
 
 		    		<!-- Tabla de categorías -->
-		    		<div class="col-xl-4">
+		    		<div class="col-xl-6">
 		    			<div class="table-responsive">
 		    				<table class="table" id="tabla-categorias">
 		    					<thead class="thead-dark">
 		    						<tr>
 		    							<th>Categorías</th>
+		    							<th></th>
+		    							<th></th>
 		    						</tr>
 		    					</thead>
 		    					<tbody>
 		    						{% for categoria in categorias %}
 		    						<tr>
 		    							<td>{{ categoria }}</td>
+		    							<td>
+		    								<input id="{{ categoria.category_id }}-{{ categoria }}" onclick="editarCategoriaModal(this.id)" type="button" class="btn btn-outline-success boton-editar-categoria" value="Editar">
+		    							</td>
+		    							<td>
+		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    							</td>
 		    						</tr>
 		    						{% endfor %}
 		    					</tbody>
@@ -83,50 +91,27 @@
 		    		</div>
 		    		<!-- Termina tabla de categorías -->
 
-		    		<!-- Tabla de proveedores -->
-		    		<div class="col-xl-8">
-		    			<div class="table-responsive">
-		    				<table class="table" id="tabla-unidades">
-		    					<thead class="thead-dark">
-		    						<tr>
-		    							<th>Proveedores</th>
-		    							<th>Teléfonos</th>
-		    							<th>Direcciones</th>
-		    						</tr>
-		    					</thead>
-		    					<tbody>
-		    						{% for proveedor in proveedores %}
-		    						<tr>
-		    							<td>{{ proveedor.name }}</td>
-											<td>{{ proveedor.phone }}</td>
-		    							<td>{{ proveedor.address }}</td>
-		    						</tr>
-		    						{% endfor %}
-		    					</tbody>
-		    				</table>
-		    			</div>
-		    		</div>
-		    		<!-- Termina tabla de proveedores -->
-
-		    	</div>
-
-		    	<br>
-
-		    	<div class="row">
-
 		    		<!-- Tabla de kilatajes -->
-		    		<div class="col-xl-4">
+		    		<div class="col-xl-6">
 	    				<div class="table-responsive">
 		    				<table class="table" id="tabla-kilatajes">
 		    					<thead class="thead-dark">
 		    						<tr>
 		    							<th>Kilatajes</th>
+		    							<th></th>
+		    							<th></th>
 		    						</tr>
 		    					</thead>
 		    					<tbody>
 		    						{% for kilataje in kilatajes %}
 		    						<tr>
 		    							<td>{{ kilataje }}</td>
+		    							<td>
+		    								<input id="{{ kilataje.kilate_id }}-{{ kilataje }}" onclick="editarKilatajeModal(this.id)" type="button" class="btn btn-outline-success boton-editar-kilataje" value="Editar">
+		    							</td>
+		    							<td>
+		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    							</td>
 		    						</tr>
 		    						{% endfor %}
 		    					</tbody>
@@ -135,8 +120,15 @@
 		    		</div>
 		    		<!-- Termina tabla de kilatajes -->
 
-		    		<!-- Tabla de códigos de barras -->
-		    		<div class="col-xl-4">
+		    	</div>
+
+		    	<br>
+		    	<br>
+
+		    	<div class="row">
+
+			    	<!-- Tabla de códigos de barras -->
+		    		<div class="col-xl-7">
 		    			<div class="table-responsive">
 		    				<table class="table" id="tabla-codigos">
 		    					<thead class="thead-dark">
@@ -144,6 +136,8 @@
 		    							<th>Códigos de Barras</th>
 		    							<th>Categoría</th>
 		    							<th>Kilataje</th>
+		    							<th></th>
+		    							<th></th>
 		    						</tr>
 		    					</thead>
 		    					<tbody>
@@ -152,6 +146,12 @@
 		    							<td>{{ codigo.barcode }}</td>
 		    							<td>{{ codigo.category }}</td>
 		    							<td>{{ codigo.kilate }}</td>
+		    							<td>
+		    								<input id="{{ codigo.barcode }}-{{ codigo.category }}-{{ codigo.kilate }}" onclick="editarCodigoModal(this.id)" type="button" class="btn btn-outline-success" value="Editar">
+		    							</td>
+		    							<td>
+		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    							</td>
 		    						</tr>
 		    						{% endfor %}
 		    					</tbody>
@@ -161,18 +161,26 @@
 		    		<!-- Termina tabla de códigos de barras -->
 
 		    		<!-- Tabla de unidades de medida -->
-		    		<div class="col-xl-4">
+		    		<div class="col-xl-5">
 		    			<div class="table-responsive">
 		    				<table class="table" id="tabla-unidades">
 		    					<thead class="thead-dark">
 		    						<tr>
 		    							<th>Unidades de Medida</th>
+		    							<th></th>
+		    							<th></th>
 		    						</tr>
 		    					</thead>
 		    					<tbody>
 		    						{% for unidad in unidades %}
 		    						<tr>
 		    							<td>{{ unidad }}</td>
+		    							<td>
+		    								<input id="{{ unidad.unit_measurement_id }}-{{ unidad }}" onclick="editarUnidadModal(this.id)" type="button" class="btn btn-outline-success" value="Editar">
+		    							</td>
+		    							<td>
+		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    							</td>
 		    						</tr>
 		    						{% endfor %}
 		    					</tbody>
@@ -183,7 +191,43 @@
 
 		    	</div>
 
-		    
+		    	<br>
+		    	<br>
+
+		    	<div class="row">
+		    		<!-- Tabla de proveedores -->
+		    		<div class="col-xl-12">
+		    			<div class="table-responsive">
+		    				<table class="table" id="tabla-proveedores">
+		    					<thead class="thead-dark">
+		    						<tr>
+		    							<th>Proveedores</th>
+		    							<th>Teléfonos</th>
+		    							<th>Direcciones</th>
+		    							<th></th>
+		    							<th></th>
+		    						</tr>
+		    					</thead>
+		    					<tbody>
+		    						{% for proveedor in proveedores %}
+		    						<tr>
+		    							<td>{{ proveedor.name }}</td>
+											<td>{{ proveedor.phone }}</td>
+		    							<td>{{ proveedor.address }}</td>
+		    							<td>
+		    								<input id="{{ proveedor.vendor_id }}-{{ proveedor.name }}-{{ proveedor.phone }}-{{ proveedor.address }}" onclick="editarProveedorModal(this.id)" type="button" class="btn btn-outline-success" value="Editar">
+		    							</td>
+		    							<td>
+		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    							</td>
+		    						</tr>
+		    						{% endfor %}
+		    					</tbody>
+		    				</table>
+		    			</div>
+		    		</div>
+		    		<!-- Termina tabla de proveedores -->
+		    	</div>
 
 		    </div>
 		  </div>
@@ -192,7 +236,7 @@
 
 	<!-- Modal agrega categoría -->
 	<div class="modal fade" id="agrega-categoria-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header bg-gradient-success">
 	        <h5 class="modal-title text-white font-weight-bold">Agregar Categorías</h5>
@@ -216,7 +260,7 @@
     									{% for i in cantidad_filas %}
     									<tr>
     										<td>
-    											<input type="text" id="fila-categoria-{{ i }}" class="form-control border-bottom-success" name="name">
+    											<input type="text" id="fila-categoria-{{ i }}" class="form-control border-bottom-success" name="name" placeholder="Ej. Anillo">
     										</td>
     									</tr>
     									{% endfor %}
@@ -238,7 +282,7 @@
 
 	<!-- Modal agrega kilataje -->
 	<div class="modal fade" id="agrega-kilataje-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header bg-gradient-warning">
 	        <h5 class="modal-title text-white font-weight-bold">Agregar Kilatajes</h5>
@@ -262,7 +306,7 @@
     									{% for i in cantidad_filas %}
     									<tr>
     										<td>
-    											<input type="text" id="fila-kilataje-{{ i }}" class="form-control border-bottom-warning" name="name">
+    											<input type="text" id="fila-kilataje-{{ i }}" class="form-control border-bottom-warning" name="name" placeholder="Ej. 10K">
     										</td>
     									</tr>
     									{% endfor %}
@@ -326,7 +370,7 @@
     											</select>
     										</td>
     										<td>
-    											<input type="text" id="fila-codigo-{{ i }}" class="form-control border-bottom-secondary" name="barcode">
+    											<input type="text" id="fila-codigo-{{ i }}" class="form-control border-bottom-secondary" name="barcode" placeholder="Ej. 1200078">
     										</td>
     									</tr>
     									{% endfor %}
@@ -348,7 +392,7 @@
 
 	<!-- Modal agrega unidad de medida -->
 	<div class="modal fade" id="agrega-unidad-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg" role="document">
+	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header bg-gradient-info">
 	        <h5 class="modal-title text-white font-weight-bold">Agregar Unidades de Medida</h5>
@@ -372,7 +416,7 @@
     									{% for i in cantidad_filas %}
     									<tr>
     										<td>
-    											<input type="text" id="fila-unidad-{{ i }}" class="form-control border-bottom-info" name="name">
+    											<input type="text" id="fila-unidad-{{ i }}" class="form-control border-bottom-info" name="name" placeholder="Ej. Gramos">
     										</td>
     									</tr>
     									{% endfor %}
@@ -446,6 +490,247 @@
 	  </div>
 	</div>
 	<!--  Termina modal agrega proveedor -->
+
+	<!-- Modal edita categoria -->
+	<div class="modal fade" id="editar-categoria-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-success">
+	        <h5 class="modal-title text-white font-weight-bold">Editar Categoría</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	<form method="POST" id="form-edita-categoria">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table">
+    								<thead>
+    									<tr>
+    										<th>Edite la categoría a continuación</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-categoria" class="form-control border-bottom-success" name="name">
+    										</td>
+    									</tr>
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-editar-categoria">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal edita categoria -->
+
+	<!-- Modal edita kilataje -->
+	<div class="modal fade" id="editar-kilataje-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-warning">
+	        <h5 class="modal-title text-white font-weight-bold">Editar Kilataje</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	<form method="POST" id="form-edita-kilataje">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table">
+    								<thead>
+    									<tr>
+    										<th>Edite la categoría a continuación</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-kilataje" class="form-control border-bottom-warning" name="name">
+    										</td>
+    									</tr>
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-editar-kilataje">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal edita kilataje -->
+
+	<!-- Modal edita código de barras -->
+	<div class="modal fade" id="editar-codigo-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-secondary">
+	        <h5 class="modal-title text-white font-weight-bold">Editar Código de Barras</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	<form method="POST" id="form-edita-codigo">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table">
+    								<thead>
+    									<tr>
+    										<th id="encabezado-codigo">Edite el código de barras a continuación</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-codigo" class="form-control border-bottom-secondary" name="barcode">
+    										</td>
+    									</tr>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-codigo-categoria" class="form-control border-bottom-secondary" name="category" disabled="disabled">
+    										</td>
+    									</tr>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-codigo-kilataje" class="form-control border-bottom-secondary" name="kilate" disabled="disabled">
+    										</td>
+    									</tr>
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-editar-codigo">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal edita código de barras -->
+
+	<!-- Modal edita unidad de medida -->
+	<div class="modal fade" id="editar-unidad-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-info">
+	        <h5 class="modal-title text-white font-weight-bold">Editar Unidad de Medida</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	<form method="POST" id="form-edita-unidad">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table">
+    								<thead>
+    									<tr>
+    										<th id="encabezado-unidad">Edite la unidad de medida a continuación</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-unidad" class="form-control border-bottom-info" name="name">
+    										</td>
+    									</tr>
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-editar-unidad">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal edita unidad de medida -->
+
+	<!-- Modal edita proveedor -->
+	<div class="modal fade" id="editar-proveedor-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-info">
+	        <h5 class="modal-title text-white font-weight-bold">Editar Proveedor</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	     	<form method="POST" id="form-edita-proveedor">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+	        	<div class="row justify-content-center">
+    					<div class="col-xl-12 text-center">
+    						<div class="table-responsive">
+    							<table class="table">
+    								<thead>
+    									<tr>
+    										<th id="encabezado-proveedor">Edite al proveedor a continuación</th>
+    									</tr>
+    								</thead>
+    								<tbody>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-proveedor-nombre" class="form-control border-bottom-info" name="name">
+    										</td>
+    									</tr>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-proveedor-telefono" class="form-control border-bottom-info" name="phone">
+    										</td>
+    									</tr>
+    									<tr>
+    										<td>
+    											<input type="text" id="input-editar-proveedor-direccion" class="form-control border-bottom-info" name="address">
+    										</td>
+    									</tr>
+    								</tbody>
+    							</table>
+    						</div>
+    					</div>
+    				</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-editar-proveedor">Guardar</button>
+		      </div>
+	    	</form>
+	    </div>
+	  </div>
+	</div>
+	<!--  Termina modal edita proveedor -->
+
 	
 {% endblock %}
 

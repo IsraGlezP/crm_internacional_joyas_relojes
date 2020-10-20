@@ -2,6 +2,14 @@
 	width: 100%;
 }
 
+th {
+  text-transform: uppercase;
+}
+
+/*.dataTables_filter{
+  float: left !important;
+}*/
+
 /* The snackbar - position it at the bottom and in the middle of the screen */
 #snackbar {
   visibility: hidden; /* Hidden by default. Visible on click */

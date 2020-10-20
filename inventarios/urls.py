@@ -14,5 +14,10 @@ urlpatterns = [
     path('alta_kilatajes/', views.alta_kilatajes, name='alta_kilatajes'),
     path('alta_unidades/', views.alta_unidades, name='alta_unidades'),
     path('alta_proveedores/', views.alta_proveedores, name='alta_proveedores'),
-    path('alta_codigos/', views.alta_codigos, name='alta_codigos')
+    path('alta_codigos/', views.alta_codigos, name='alta_codigos'),
+    path('editar_categoria/<str:pk>/', views.editar_categoria, name='editar_categoria'),
+    path('editar_kilataje/<str:pk>/', views.editar_kilataje, name='editar_kilataje'),
+    path('editar_codigo/<str:pk>/', views.editar_codigo, name='editar_codigo'),
+    path('editar_unidad/<str:pk>/', views.editar_unidad, name='editar_unidad'),
+    path('editar_proveedor/<str:pk>/', views.editar_proveedor, name='editar_proveedor')
 ]

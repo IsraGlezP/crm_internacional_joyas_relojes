@@ -1,10 +1,4 @@
-window.onload = () => {
-
-	// Inicializa tabla alta productos
-	var tablaAltaProductos = $('#tabla-alta-productos').DataTable({
-		searching: false,
-		ordering: false
-	});
+// window.onload = () => {
 
 	// Inicializa tabla alta categorias
 	var tablaAltaCategorias = $('#tabla-alta-categorias').DataTable({
@@ -18,11 +12,18 @@ window.onload = () => {
 
 	// Inicializa tabla categorias
 	var tablaCategorias = $('#tabla-categorias').DataTable({
-		searching: false,
 		ordering: false,
 		pageLength: 10,
 		lengthChange: false,
-    bInfo: false
+    bInfo: false,
+    language: {
+    	zeroRecords: 'Sin resultados',
+    	search: 'Buscar:',
+    	paginate: {
+    		next: 'Siguiente',
+    		previous: 'Anterior'
+    	}
+    }
 	});
 
 	// Inicializa tabla alta kilatajes
@@ -37,11 +38,18 @@ window.onload = () => {
 
 	// Inicializa tabla categorias
 	var tablaKilatajes = $('#tabla-kilatajes').DataTable({
-		searching: false,
 		ordering: false,
 		pageLength: 10,
 		lengthChange: false,
-    bInfo: false
+    bInfo: false,
+    language: {
+    	zeroRecords: 'Sin resultados',
+    	search: 'Buscar:',
+    	paginate: {
+    		next: 'Siguiente',
+    		previous: 'Anterior'
+    	}
+    }
 	});
 
 	// Inicializa tabla alta kilatajes
@@ -56,11 +64,18 @@ window.onload = () => {
 
 	// Inicializa tabla códigos de barras
 	var tablaCodigos = $('#tabla-codigos').DataTable({
-		searching: false,
 		ordering: false,
 		pageLength: 10,
 		lengthChange: false,
-    bInfo: false
+    bInfo: false,
+    language: {
+    	zeroRecords: 'Sin resultados',
+    	search: 'Buscar:',
+    	paginate: {
+    		next: 'Siguiente',
+    		previous: 'Anterior'
+    	}
+    }
 	});
 
 	// Inicializa tabla alta unidades de medida
@@ -73,13 +88,20 @@ window.onload = () => {
     bInfo: false,
 	});
 
-	// Inicializa tabla unidades de medida
+	// Inicializa tabla códigos de barras
 	var tablaUnidades = $('#tabla-unidades').DataTable({
-		searching: false,
 		ordering: false,
 		pageLength: 10,
 		lengthChange: false,
-    bInfo: false
+    bInfo: false,
+    language: {
+    	zeroRecords: 'Sin resultados',
+    	search: 'Buscar:',
+    	paginate: {
+    		next: 'Siguiente',
+    		previous: 'Anterior'
+    	}
+    }
 	});
 
 	// Inicializa tabla alta proveedores
@@ -94,11 +116,18 @@ window.onload = () => {
 
 	// Inicializa tabla proveedores
 	var tablaProveedores = $('#tabla-proveedores').DataTable({
-		searching: false,
 		ordering: false,
 		pageLength: 10,
 		lengthChange: false,
-    bInfo: false
+    bInfo: false,
+    language: {
+    	zeroRecords: 'Sin resultados',
+    	search: 'Buscar:',
+    	paginate: {
+    		next: 'Siguiente',
+    		previous: 'Anterior'
+    	}
+    }
 	});
 
 	// Al select de categorías y de kilataje le agregamos una clase específica para utilizarlos con ajax
@@ -221,7 +250,7 @@ window.onload = () => {
 			  	setTimeout(function(){ 
 			  		x.className = x.className.replace("show", "");
 			  		window.location.reload(true);
-			  	}, 1000);
+			  	}, 2000);
 			  // 	for (var i = 0; i < inputsConContenido.length; i++) {
 			  // 		console.log(inputsConContenido[i].value);
 			  // 		inputsConContenido[i].value = '';
@@ -533,12 +562,7 @@ window.onload = () => {
 			  	setTimeout(function(){ 
 			  		x.className = x.className.replace("show", "");
 			  		window.location.reload(true);
-			  	}, 1000);
-			  // 	for (var i = 0; i < inputsConContenido.length; i++) {
-			  // 		console.log(inputsConContenido[i].value);
-			  // 		inputsConContenido[i].value = '';
-			  // 		inputsConContenido[i].classList.remove('con-contenido-proveedor');
-					// }
+			  	}, 2000);
 				}
 			},
 			error: function(error) {
@@ -547,7 +571,6 @@ window.onload = () => {
 		});
 
 	});
-
 
 	// Función para validar si los dos select de categoría y de kilataje ya tienen valores para poder hacer uso de función ajax
 	// $('.combo-barcode-ajax').on('change', () => {
@@ -603,7 +626,264 @@ window.onload = () => {
  //  	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
 	// }
 
+// }
+
+// Función que muestra el modal para editar categoría
+const editarCategoriaModal = (categoria_id) => {
+
+	console.log(categoria_id);
+
+	var categoria_separada = categoria_id.split('-');
+
+	var id = categoria_separada[0];
+	var nombre_categoria = categoria_separada[1];
+
+	console.log(id);
+	console.log(nombre_categoria);
+
+	$('#input-editar-categoria').val(nombre_categoria);
+
+	$('#form-edita-categoria').attr('action', '/inventarios/editar_categoria/'+id+'/');
+
+	$('#editar-categoria-modal').modal('show');
+
 }
+
+$('#guardar-editar-categoria').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-edita-categoria').attr('action'),
+			type: $('#form-edita-categoria').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-edita-categoria').serialize(),
+			success: function(response) {
+				if (response['bandera'] == 0) {
+					alert(response['mensaje']);
+				} else {
+					$('#editar-categoria-modal').modal('hide');
+					$('#snackbar').html('');
+					$('#snackbar').html(response['mensaje']);
+					var x = document.getElementById("snackbar");
+			  	x.className = "show";
+			  	setTimeout(function(){ 
+			  		x.className = x.className.replace("show", "");
+			  		window.location.reload(true);
+			  	}, 2000);
+				}
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+// Función que muestra el modal para editar kilataje
+const editarKilatajeModal = (kilataje_id) => {
+
+	console.log(kilataje_id);
+
+	var kilataje_separado = kilataje_id.split('-');
+
+	var id = kilataje_separado[0];
+	var nombre_kilataje = kilataje_separado[1];
+
+	console.log(id);
+	console.log(kilataje_separado);
+
+	$('#input-editar-kilataje').val(nombre_kilataje);
+
+	$('#form-edita-kilataje').attr('action', '/inventarios/editar_kilataje/'+id+'/');
+
+	$('#editar-kilataje-modal').modal('show');
+
+}
+
+$('#guardar-editar-kilataje').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-edita-kilataje').attr('action'),
+			type: $('#form-edita-kilataje').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-edita-kilataje').serialize(),
+			success: function(response) {
+				$('#editar-kilataje-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 2000);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+// Función que muestra el modal para editar código de barras
+const editarCodigoModal = (codigo_id) => {
+
+	console.log(codigo_id);
+
+	var codigo_separado = codigo_id.split('-');
+
+	var id = codigo_separado[0];
+	var nombre_categoria = codigo_separado[1];
+	var nombre_kilataje = codigo_separado[2];
+
+	// console.log(id);
+	// console.log(codigo_separado);
+
+	$('#input-editar-codigo').val(id);
+
+	// $('#encabezado-codigo').html('Editar Código de Barras para '+nombre_categoria+' - '+nombre_kilataje);
+
+	$('#input-editar-codigo-categoria').val(nombre_categoria);
+
+	$('#input-editar-codigo-kilataje').val(nombre_kilataje);
+
+	$('#form-edita-codigo').attr('action', '/inventarios/editar_codigo/'+id+'/');
+
+	$('#editar-codigo-modal').modal('show');
+
+}
+
+$('#guardar-editar-codigo').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-edita-codigo').attr('action'),
+			type: $('#form-edita-codigo').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-edita-codigo').serialize(),
+			success: function(response) {
+				$('#editar-codigo-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 2000);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+// Función que muestra el modal para editar unidad de medida
+const editarUnidadModal = (unidad_id) => {
+
+	console.log(unidad_id);
+
+	var unidad_separada = unidad_id.split('-');
+
+	var id = unidad_separada[0];
+	var nombre_unidad = unidad_separada[1];
+
+	console.log(id);
+	console.log(unidad_separada);
+
+	$('#input-editar-unidad').val(nombre_unidad);
+
+	$('#form-edita-unidad').attr('action', '/inventarios/editar_unidad/'+id+'/');
+
+	$('#editar-unidad-modal').modal('show');
+
+}
+
+$('#guardar-editar-unidad').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-edita-unidad').attr('action'),
+			type: $('#form-edita-unidad').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-edita-unidad').serialize(),
+			success: function(response) {
+				$('#editar-unidad-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 2000);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+// Función que muestra el modal para editar proveedor
+const editarProveedorModal = (proveedor_id) => {
+
+	console.log(proveedor_id);
+
+	var proveedor_separado = proveedor_id.split('-');
+
+	var id = proveedor_separado[0];
+	var nombre_proveedor = proveedor_separado[1];
+	var telefono = proveedor_separado[2];
+	var direccion = proveedor_separado[3];
+
+	// console.log(id);
+	// console.log(codigo_separado);
+
+	$('#input-editar-proveedor-nombre').val(nombre_proveedor)
+	$('#input-editar-proveedor-telefono').val(telefono)
+	$('#input-editar-proveedor-direccion').val(direccion)
+
+	// $('#encabezado-codigo').html('Editar Código de Barras para '+nombre_categoria+' - '+nombre_kilataje);
+
+	$('#form-edita-proveedor').attr('action', '/inventarios/editar_proveedor/'+id+'/');
+
+	$('#editar-proveedor-modal').modal('show');
+
+}
+
+$('#guardar-editar-proveedor').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-edita-proveedor').attr('action'),
+			type: $('#form-edita-proveedor').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-edita-proveedor').serialize(),
+			success: function(response) {
+				$('#editar-proveedor-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 2000);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
 
 function cambia_clase_codigos_modal(numFila){
 		var idCategoria = 'fila-codigo-categoria-'+numFila;

@@ -332,6 +332,70 @@ def alta_codigos(request):
 	response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
 	return response
 
+def editar_categoria(request, pk):
+	categoria = Category.objects.get(category_id=pk)
+
+	if request.method == 'POST':
+		form = CategoryForm(request.POST, instance=categoria)
+		if form.is_valid():
+			form.save()
+			response = JsonResponse({'mensaje': 'Categoría actualizada'})
+			return response
+	
+	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
+	return response
+
+def editar_kilataje(request, pk):
+	kilataje = Kilate.objects.get(kilate_id=pk)
+
+	if request.method == 'POST':
+		form = KilateForm(request.POST, instance=kilataje)
+		if form.is_valid():
+			form.save()
+			response = JsonResponse({'mensaje': 'Kilataje actualizado'})
+			return response
+	print('FORM: ', form)
+	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
+	return response
+
+def editar_codigo(request, pk):
+	codigo_viejo = Barcode.objects.get(barcode=pk)
+
+	if request.method == 'POST':
+		categoria = Category.objects.get(name=codigo_viejo.category)
+		kilataje = Kilate.objects.get(name=codigo_viejo.kilate)
+		codigo_nuevo = Barcode(barcode=request.POST['barcode'], category=categoria, kilate=kilataje)
+		print('CODIGO NUEVO: ', codigo_nuevo)
+		codigo_viejo.delete()
+		codigo_nuevo.save()
+		response = JsonResponse({'mensaje': 'Código de Barras actualizado'})
+		return response
+
+def editar_unidad(request, pk):
+	unidad = UnitMeasurement.objects.get(unit_measurement_id=pk)
+
+	if request.method == 'POST':
+		form = UnitMeasurementForm(request.POST, instance=unidad)
+		if form.is_valid():
+			form.save()
+			response = JsonResponse({'mensaje': 'Unidad de Medida actualizada'})
+			return response
+	print('FORM: ', form)
+	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
+	return response
+
+def editar_proveedor(request, pk):
+	proveedor = Vendor.objects.get(vendor_id=pk)
+
+	if request.method == 'POST':
+		form = VendorForm(request.POST, instance=proveedor)
+		if form.is_valid():
+			form.save()
+			response = JsonResponse({'mensaje': 'Proveedor actualizado|'})
+			return response
+	print('FORM: ', form)
+	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
+	return response
 
 
 
