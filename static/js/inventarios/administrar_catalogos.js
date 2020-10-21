@@ -1,632 +1,574 @@
-// window.onload = () => {
 
-	// Inicializa tabla alta categorias
-	var tablaAltaCategorias = $('#tabla-alta-categorias').DataTable({
-		searching: false,
-		ordering: false,
-		scroller: true,
-		scrollY: 250,
-    paging: false,
-    bInfo: false,
-	});
+// Inicializa tabla alta categorias
+var tablaAltaCategorias = $('#tabla-alta-categorias').DataTable({
+	searching: false,
+	ordering: false,
+	scroller: true,
+	scrollY: 250,
+  paging: false,
+  bInfo: false,
+});
 
-	// Inicializa tabla categorias
-	var tablaCategorias = $('#tabla-categorias').DataTable({
-		ordering: false,
-		pageLength: 10,
-		lengthChange: false,
-    bInfo: false,
-    language: {
-    	zeroRecords: 'Sin resultados',
-    	search: 'Buscar:',
-    	paginate: {
-    		next: 'Siguiente',
-    		previous: 'Anterior'
-    	}
-    }
-	});
+// Inicializa tabla categorias
+var tablaCategorias = $('#tabla-categorias').DataTable({
+	ordering: false,
+	pageLength: 10,
+	lengthChange: false,
+  bInfo: false,
+  language: {
+  	zeroRecords: 'Sin resultados',
+  	search: 'Buscar:',
+  	paginate: {
+  		next: 'Siguiente',
+  		previous: 'Anterior'
+  	}
+  }
+});
 
-	// Inicializa tabla alta kilatajes
-	var tablaAltaKilatajes = $('#tabla-alta-kilatajes').DataTable({
-		searching: false,
-		ordering: false,
-		scroller: true,
-		scrollY: 250,
-    paging: false,
-    bInfo: false,
-	});
+// Inicializa tabla alta kilatajes
+var tablaAltaKilatajes = $('#tabla-alta-kilatajes').DataTable({
+	searching: false,
+	ordering: false,
+	scroller: true,
+	scrollY: 250,
+  paging: false,
+  bInfo: false,
+});
 
-	// Inicializa tabla categorias
-	var tablaKilatajes = $('#tabla-kilatajes').DataTable({
-		ordering: false,
-		pageLength: 10,
-		lengthChange: false,
-    bInfo: false,
-    language: {
-    	zeroRecords: 'Sin resultados',
-    	search: 'Buscar:',
-    	paginate: {
-    		next: 'Siguiente',
-    		previous: 'Anterior'
-    	}
-    }
-	});
+// Inicializa tabla categorias
+var tablaKilatajes = $('#tabla-kilatajes').DataTable({
+	ordering: false,
+	pageLength: 10,
+	lengthChange: false,
+  bInfo: false,
+  language: {
+  	zeroRecords: 'Sin resultados',
+  	search: 'Buscar:',
+  	paginate: {
+  		next: 'Siguiente',
+  		previous: 'Anterior'
+  	}
+  }
+});
 
-	// Inicializa tabla alta kilatajes
-	var tablaAltaCodigos = $('#tabla-alta-codigos').DataTable({
-		searching: false,
-		ordering: false,
-		scroller: true,
-		scrollY: 250,
-    paging: false,
-    bInfo: false,
-	});
+// Inicializa tabla alta kilatajes
+var tablaAltaCodigos = $('#tabla-alta-codigos').DataTable({
+	searching: false,
+	ordering: false,
+	scroller: true,
+	scrollY: 250,
+  paging: false,
+  bInfo: false,
+});
 
-	// Inicializa tabla códigos de barras
-	var tablaCodigos = $('#tabla-codigos').DataTable({
-		ordering: false,
-		pageLength: 10,
-		lengthChange: false,
-    bInfo: false,
-    language: {
-    	zeroRecords: 'Sin resultados',
-    	search: 'Buscar:',
-    	paginate: {
-    		next: 'Siguiente',
-    		previous: 'Anterior'
-    	}
-    }
-	});
+// Inicializa tabla códigos de barras
+var tablaCodigos = $('#tabla-codigos').DataTable({
+	ordering: false,
+	pageLength: 10,
+	lengthChange: false,
+  bInfo: false,
+  language: {
+  	zeroRecords: 'Sin resultados',
+  	search: 'Buscar:',
+  	paginate: {
+  		next: 'Siguiente',
+  		previous: 'Anterior'
+  	}
+  }
+});
 
-	// Inicializa tabla alta unidades de medida
-	var tablaAltaUnidades = $('#tabla-alta-unidades').DataTable({
-		searching: false,
-		ordering: false,
-		scroller: true,
-		scrollY: 250,
-    paging: false,
-    bInfo: false,
-	});
+// Inicializa tabla alta unidades de medida
+var tablaAltaUnidades = $('#tabla-alta-unidades').DataTable({
+	searching: false,
+	ordering: false,
+	scroller: true,
+	scrollY: 250,
+  paging: false,
+  bInfo: false,
+});
 
-	// Inicializa tabla códigos de barras
-	var tablaUnidades = $('#tabla-unidades').DataTable({
-		ordering: false,
-		pageLength: 10,
-		lengthChange: false,
-    bInfo: false,
-    language: {
-    	zeroRecords: 'Sin resultados',
-    	search: 'Buscar:',
-    	paginate: {
-    		next: 'Siguiente',
-    		previous: 'Anterior'
-    	}
-    }
-	});
+// Inicializa tabla códigos de barras
+var tablaUnidades = $('#tabla-unidades').DataTable({
+	ordering: false,
+	pageLength: 10,
+	lengthChange: false,
+  bInfo: false,
+  language: {
+  	zeroRecords: 'Sin resultados',
+  	search: 'Buscar:',
+  	paginate: {
+  		next: 'Siguiente',
+  		previous: 'Anterior'
+  	}
+  }
+});
 
-	// Inicializa tabla alta proveedores
-	var tablaAltaProveedores = $('#tabla-alta-proveedores').DataTable({
-		searching: false,
-		ordering: false,
-		scroller: true,
-		scrollY: 250,
-    paging: false,
-    bInfo: false,
-	});
+// Inicializa tabla alta proveedores
+var tablaAltaProveedores = $('#tabla-alta-proveedores').DataTable({
+	searching: false,
+	ordering: false,
+	scroller: true,
+	scrollY: 250,
+  paging: false,
+  bInfo: false,
+});
 
-	// Inicializa tabla proveedores
-	var tablaProveedores = $('#tabla-proveedores').DataTable({
-		ordering: false,
-		pageLength: 10,
-		lengthChange: false,
-    bInfo: false,
-    language: {
-    	zeroRecords: 'Sin resultados',
-    	search: 'Buscar:',
-    	paginate: {
-    		next: 'Siguiente',
-    		previous: 'Anterior'
-    	}
-    }
-	});
+// Inicializa tabla proveedores
+var tablaProveedores = $('#tabla-proveedores').DataTable({
+	ordering: false,
+	pageLength: 10,
+	lengthChange: false,
+  bInfo: false,
+  language: {
+  	zeroRecords: 'Sin resultados',
+  	search: 'Buscar:',
+  	paginate: {
+  		next: 'Siguiente',
+  		previous: 'Anterior'
+  	}
+  }
+});
 
-	// Al select de categorías y de kilataje le agregamos una clase específica para utilizarlos con ajax
-	// const selectCategoria = document.getElementById('id_category');
-	// selectCategoria.classList.add('combo-barcode-ajax');
-	// const selectKilataje = document.getElementById('id_kilate');
-	// selectKilataje.classList.add('combo-barcode-ajax');
+// Al select de categorías y de kilataje le agregamos una clase específica para utilizarlos con ajax
+// const selectCategoria = document.getElementById('id_category');
+// selectCategoria.classList.add('combo-barcode-ajax');
+// const selectKilataje = document.getElementById('id_kilate');
+// selectKilataje.classList.add('combo-barcode-ajax');
 
-	// Muestra modal para agregar categoría
-	$('#boton-agregar-categoria').on('click', () => {
-		$('#agrega-categoria-modal').modal('show');
-	});
+// Muestra modal para agregar categoría
+$('#boton-agregar-categoria').on('click', () => {
+	$('#agrega-categoria-modal').modal('show');
+});
 
-	// Redimensiona el encabezado de la tabla alta categorías cuando se muestra el modal
-	$('#agrega-categoria-modal').on('shown.bs.modal', function () {
-       tablaAltaCategorias.columns.adjust();
-       document.getElementById('fila-categoria-0').focus();
-   });
+// Redimensiona el encabezado de la tabla alta categorías cuando se muestra el modal
+$('#agrega-categoria-modal').on('shown.bs.modal', function () {
+     tablaAltaCategorias.columns.adjust();
+     document.getElementById('fila-categoria-0').focus();
+ });
 
-	// Muestra modal para agregar kilataje
-	$('#boton-agregar-kilataje').on('click', () => {
-		$('#agrega-kilataje-modal').modal('show');
-	});
+// Muestra modal para agregar kilataje
+$('#boton-agregar-kilataje').on('click', () => {
+	$('#agrega-kilataje-modal').modal('show');
+});
 
-	// Redimensiona el encabezado de la tabla alta kilatajes cuando se muestra el modal
-	$('#agrega-kilataje-modal').on('shown.bs.modal', function () {
-       tablaAltaKilatajes.columns.adjust();
-       document.getElementById('fila-kilataje-0').focus();
-   });
+// Redimensiona el encabezado de la tabla alta kilatajes cuando se muestra el modal
+$('#agrega-kilataje-modal').on('shown.bs.modal', function () {
+     tablaAltaKilatajes.columns.adjust();
+     document.getElementById('fila-kilataje-0').focus();
+ });
 
-	// Muestra modal para agregar código de barras
-	$('#boton-agregar-codigo').on('click', () => {
-		$('#agrega-codigo-modal').modal('show');
-	});
+// Muestra modal para agregar código de barras
+$('#boton-agregar-codigo').on('click', () => {
+	$('#agrega-codigo-modal').modal('show');
+});
 
-	// Redimensiona el encabezado de la tabla alta códigos de barras cuando se muestra el modal
-	$('#agrega-codigo-modal').on('shown.bs.modal', function () {
-       tablaAltaCodigos.columns.adjust();
-       document.getElementById('fila-codigo-categoria-0').focus();
-   });
+// Redimensiona el encabezado de la tabla alta códigos de barras cuando se muestra el modal
+$('#agrega-codigo-modal').on('shown.bs.modal', function () {
+     tablaAltaCodigos.columns.adjust();
+     document.getElementById('fila-codigo-categoria-0').focus();
+ });
 
-	// Muestra modal para agregar unidad de medida
-	$('#boton-agregar-unidad').on('click', () => {
-		$('#agrega-unidad-modal').modal('show');
-	});
+// Muestra modal para agregar unidad de medida
+$('#boton-agregar-unidad').on('click', () => {
+	$('#agrega-unidad-modal').modal('show');
+});
 
-	// Redimensiona el encabezado de la tabla alta unidades cuando se muestra el modal
-	$('#agrega-unidad-modal').on('shown.bs.modal', function () {
-       tablaAltaUnidades.columns.adjust();
-       document.getElementById('fila-unidad-0').focus();
-   });
+// Redimensiona el encabezado de la tabla alta unidades cuando se muestra el modal
+$('#agrega-unidad-modal').on('shown.bs.modal', function () {
+     tablaAltaUnidades.columns.adjust();
+     document.getElementById('fila-unidad-0').focus();
+ });
 
-	// Muestra modal para agregar proveedor
-	$('#boton-agregar-proveedor').on('click', () => {
-		$('#agrega-proveedor-modal').modal('show');
-	});
+// Muestra modal para agregar proveedor
+$('#boton-agregar-proveedor').on('click', () => {
+	$('#agrega-proveedor-modal').modal('show');
+});
 
-	// Redimensiona el encabezado de la tabla alta proveedores cuando se muestra el modal
-	$('#agrega-proveedor-modal').on('shown.bs.modal', function () {
-       tablaAltaProveedores.columns.adjust();
-       document.getElementById('fila-proveedor-nombre-0').focus();
-   });
+// Redimensiona el encabezado de la tabla alta proveedores cuando se muestra el modal
+$('#agrega-proveedor-modal').on('shown.bs.modal', function () {
+     tablaAltaProveedores.columns.adjust();
+     document.getElementById('fila-proveedor-nombre-0').focus();
+ });
 
-	// Cambiamos la clase de categorías cuando se está editando
-	$('#tabla-alta-categorias tbody').on('keyup', 'tr', function(event) {
+// Cambiamos la clase de categorías cuando se está editando
+$('#tabla-alta-categorias tbody').on('keyup', 'tr', function(event) {
 
-		var numFila = tablaAltaCategorias.row(this).index();
-		var numColumna = 0;
+	var numFila = tablaAltaCategorias.row(this).index();
+	var numColumna = 0;
 
-		var idFila = 'fila-categoria-'+numFila;
+	var idFila = 'fila-categoria-'+numFila;
 
-		var input = document.getElementById(idFila);
-		// input.classList.remove('sin-contenido');
-		// input.classList.remove('con-contenido');
+	var input = document.getElementById(idFila);
 
-		var inputContenido = input.value;
-		if ( inputContenido == '') {
-			input.classList.remove('con-contenido-categoria');
-		} else {
-			input.classList.add('con-contenido-categoria');
-		}
+	var inputContenido = input.value;
+	if ( inputContenido == '') {
+		input.classList.remove('con-contenido-categoria');
+	} else {
+		input.classList.add('con-contenido-categoria');
+	}
 
-	});
+});
 
-	// Guarda categorías
-	$('#guardar-categoria').on('click', (event) => {
+// Guarda categorías
+$('#guardar-categoria').on('click', (event) => {
 
-		event.preventDefault();
+	event.preventDefault();
 
-		inputsConContenido = document.getElementsByClassName('con-contenido-categoria');
+	inputsConContenido = document.getElementsByClassName('con-contenido-categoria');
 
-		if (inputsConContenido.length <= 0) {
-			alert('No ha ingresado categorías');
-			return;
-		}
+	if (inputsConContenido.length <= 0) {
+		alert('No ha ingresado categorías');
+		return;
+	}
 
-		var data = [];
-		for (var i = 0; i < inputsConContenido.length; i++) {
-			data.push(inputsConContenido[i]);
-		}
+	var data = [];
+	for (var i = 0; i < inputsConContenido.length; i++) {
+		data.push(inputsConContenido[i]);
+	}
 
-		formElements = document.getElementById('form-categoria').elements;
-		data.push(formElements[0]);
+	formElements = document.getElementById('form-categoria').elements;
+	data.push(formElements[0]);
 
-		$.ajax({
-			url: '/inventarios/alta_categorias/',
-			type: 'POST',
-			dataType: 'JSON',
-			data: data,
-			success: function(response) {
-				if (response['bandera'] == 0) {
-					alert(response['mensaje']);
-				} else {
-					// tablaCategorias.ajax.url('/inventarios/actualiza_tabla_categorias/').load();
-					$('#agrega-categoria-modal').modal('hide');
-					$('#snackbar').html('');
-					$('#snackbar').html(response['mensaje']);
-					var x = document.getElementById("snackbar");
-			  	x.className = "show";
-			  	setTimeout(function(){ 
-			  		x.className = x.className.replace("show", "");
-			  		window.location.reload(true);
-			  	}, 2000);
-			  // 	for (var i = 0; i < inputsConContenido.length; i++) {
-			  // 		console.log(inputsConContenido[i].value);
-			  // 		inputsConContenido[i].value = '';
-			  // 		inputsConContenido[i].classList.remove('con-contenido-categoria');
-					// }
-				}
-			},
-			error: function(error) {
-				console.log(error)
+	$.ajax({
+		url: '/inventarios/alta_categorias/',
+		type: 'POST',
+		dataType: 'JSON',
+		data: data,
+		success: function(response) {
+			if (response['bandera'] == 0) {
+				alert(response['mensaje']);
+			} else {
+				// tablaCategorias.ajax.url('/inventarios/actualiza_tabla_categorias/').load();
+				$('#agrega-categoria-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 2000);
+		  // 	for (var i = 0; i < inputsConContenido.length; i++) {
+		  // 		console.log(inputsConContenido[i].value);
+		  // 		inputsConContenido[i].value = '';
+		  // 		inputsConContenido[i].classList.remove('con-contenido-categoria');
+				// }
 			}
-		})
-
-	});
-
-	// Cambiamos la clase de kilatajes cuando se está editando
-	$('#tabla-alta-kilatajes tbody').on('keyup', 'tr', function(event) {
-
-		var numFila = tablaAltaKilatajes.row(this).index();
-		var numColumna = 0;
-
-		var idFila = 'fila-kilataje-'+numFila;
-
-		var input = document.getElementById(idFila);
-		// input.classList.remove('sin-contenido');
-		// input.classList.remove('con-contenido');
-
-		var inputContenido = input.value;
-		if ( inputContenido == '') {
-			input.classList.remove('con-contenido-kilataje');
-		} else {
-			input.classList.add('con-contenido-kilataje');
+		},
+		error: function(error) {
+			console.log(error)
 		}
+	})
 
-	});
+});
+
+// Cambiamos la clase de kilatajes cuando se está editando
+$('#tabla-alta-kilatajes tbody').on('keyup', 'tr', function(event) {
+
+	var numFila = tablaAltaKilatajes.row(this).index();
+	var numColumna = 0;
+
+	var idFila = 'fila-kilataje-'+numFila;
+
+	var input = document.getElementById(idFila);
+	// input.classList.remove('sin-contenido');
+	// input.classList.remove('con-contenido');
+
+	var inputContenido = input.value;
+	if ( inputContenido == '') {
+		input.classList.remove('con-contenido-kilataje');
+	} else {
+		input.classList.add('con-contenido-kilataje');
+	}
+
+});
 
 
-	// Guarda kilatajes
-	$('#guardar-kilataje').on('click', (event) => {
+// Guarda kilatajes
+$('#guardar-kilataje').on('click', (event) => {
 
-		event.preventDefault();
+	event.preventDefault();
 
-		inputsConContenido = document.getElementsByClassName('con-contenido-kilataje');
+	inputsConContenido = document.getElementsByClassName('con-contenido-kilataje');
 
-		if (inputsConContenido.length <= 0) {
-			alert('No ha ingresado kilatajes');
-			return;
-		}
+	if (inputsConContenido.length <= 0) {
+		alert('No ha ingresado kilatajes');
+		return;
+	}
 
-		var data = [];
-		for (var i = 0; i < inputsConContenido.length; i++) {
-			data.push(inputsConContenido[i]);
-		}
+	var data = [];
+	for (var i = 0; i < inputsConContenido.length; i++) {
+		data.push(inputsConContenido[i]);
+	}
 
-		formElements = document.getElementById('form-kilataje').elements;
-		data.push(formElements[0]);
+	formElements = document.getElementById('form-kilataje').elements;
+	data.push(formElements[0]);
 
-		$.ajax({
-			url: '/inventarios/alta_kilatajes/',
-			type: 'POST',
-			dataType: 'JSON',
-			data: data,
-			success: function(response) {
-				if (response['bandera'] == 0) {
-					alert(response['mensaje']);
-				} else {
-					$('#agrega-kilataje-modal').modal('hide');
-					$('#snackbar').html('');
-					$('#snackbar').html(response['mensaje']);
-					var x = document.getElementById("snackbar");
-			  	x.className = "show";
-			  	setTimeout(function(){ 
-			  		x.className = x.className.replace("show", "");
-			  		window.location.reload(true);
-			  	}, 1000);
-			  // 	for (var i = 0; i < inputsConContenido.length; i++) {
-			  // 		console.log(inputsConContenido[i].value);
-			  // 		inputsConContenido[i].value = '';
-			  // 		inputsConContenido[i].classList.remove('con-contenido-kilataje');
-					// }
-				}
-			},
-			error: function(error) {
-				console.log(error)
+	$.ajax({
+		url: '/inventarios/alta_kilatajes/',
+		type: 'POST',
+		dataType: 'JSON',
+		data: data,
+		success: function(response) {
+			if (response['bandera'] == 0) {
+				alert(response['mensaje']);
+			} else {
+				$('#agrega-kilataje-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1000);
+		  // 	for (var i = 0; i < inputsConContenido.length; i++) {
+		  // 		console.log(inputsConContenido[i].value);
+		  // 		inputsConContenido[i].value = '';
+		  // 		inputsConContenido[i].classList.remove('con-contenido-kilataje');
+				// }
 			}
-		})
-
-	});
-
-	// Cambiamos la clase de códigos de barras cuando se seleccione una opción
-	$('#tabla-alta-codigos tbody').on('change', 'td', function(event) {
-
-		var numFila = tablaAltaCodigos.cell(this).index().row;
-
-		cambia_clase_codigos_modal(numFila);
-
-	});
-
-	// Cambiamos la clase de códigos de barras cuando se está editando
-	$('#tabla-alta-codigos tbody').on('keyup', 'tr', function(event) {
-
-		var numFila = tablaAltaCodigos.row(this).index();
-
-		cambia_clase_codigos_modal(numFila);
-
-	});
-
-	// Guarda códigos de barras
-	$('#guardar-codigo').on('click', (event) => {
-
-		event.preventDefault();
-
-		inputsConContenido = document.getElementsByClassName('con-contenido-codigo');
-
-		if (inputsConContenido.length <= 0) {
-			alert('No ha ingresado datos para códigos de barras');
-			return;
+		},
+		error: function(error) {
+			console.log(error)
 		}
+	})
 
-		var data = [];
-		for (var i = 0; i < inputsConContenido.length; i++) {
-			data.push(inputsConContenido[i]);
-		}
+});
 
-		formElements = document.getElementById('form-codigo').elements;
-		data.push(formElements[0]);
+// Cambiamos la clase de códigos de barras cuando se seleccione una opción
+$('#tabla-alta-codigos tbody').on('change', 'td', function(event) {
 
-		console.log(data);
+	var numFila = tablaAltaCodigos.cell(this).index().row;
 
-		$.ajax({
-			url: '/inventarios/alta_codigos/',
-			type: 'POST',
-			dataType: 'JSON',
-			data: data,
-			success: function(response) {
-				if (response['bandera'] == 0) {
-					alert(response['mensaje']);
-				} else {
-					$('#agrega-codigo-modal').modal('hide');
-					$('#snackbar').html('');
-					$('#snackbar').html(response['mensaje']);
-					var x = document.getElementById("snackbar");
-			  	x.className = "show";
-			  	setTimeout(function(){ 
-			  		x.className = x.className.replace("show", "");
-			  		window.location.reload(true);
-			  	}, 1000);
-			  // 	for (var i = 0; i < inputsConContenido.length; i++) {
-			  // 		console.log(inputsConContenido[i].value);
-			  // 		inputsConContenido[i].value = '';
-			  // 		inputsConContenido[i].classList.remove('con-contenido-codigo');
-					// }
-				}
-			},
-			error: function(error) {
-				console.log(error)
+	cambia_clase_codigos_modal(numFila);
+
+});
+
+// Cambiamos la clase de códigos de barras cuando se está editando
+$('#tabla-alta-codigos tbody').on('keyup', 'tr', function(event) {
+
+	var numFila = tablaAltaCodigos.row(this).index();
+
+	cambia_clase_codigos_modal(numFila);
+
+});
+
+// Guarda códigos de barras
+$('#guardar-codigo').on('click', (event) => {
+
+	event.preventDefault();
+
+	inputsConContenido = document.getElementsByClassName('con-contenido-codigo');
+
+	if (inputsConContenido.length <= 0) {
+		alert('No ha ingresado datos para códigos de barras');
+		return;
+	}
+
+	var data = [];
+	for (var i = 0; i < inputsConContenido.length; i++) {
+		data.push(inputsConContenido[i]);
+	}
+
+	formElements = document.getElementById('form-codigo').elements;
+	data.push(formElements[0]);
+
+	console.log(data);
+
+	$.ajax({
+		url: '/inventarios/alta_codigos/',
+		type: 'POST',
+		dataType: 'JSON',
+		data: data,
+		success: function(response) {
+			if (response['bandera'] == 0) {
+				alert(response['mensaje']);
+			} else {
+				$('#agrega-codigo-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1000);
+		  // 	for (var i = 0; i < inputsConContenido.length; i++) {
+		  // 		console.log(inputsConContenido[i].value);
+		  // 		inputsConContenido[i].value = '';
+		  // 		inputsConContenido[i].classList.remove('con-contenido-codigo');
+				// }
 			}
-		});
-
+		},
+		error: function(error) {
+			console.log(error)
+		}
 	});
 
-	// Cambiamos la clase de unidades de medida cuando se está editando
-	$('#tabla-alta-unidades tbody').on('keyup', 'tr', function(event) {
+});
 
-		var numFila = tablaAltaUnidades.row(this).index();
-		var numColumna = 0;
+// Cambiamos la clase de unidades de medida cuando se está editando
+$('#tabla-alta-unidades tbody').on('keyup', 'tr', function(event) {
 
-		var idFila = 'fila-unidad-'+numFila;
+	var numFila = tablaAltaUnidades.row(this).index();
+	var numColumna = 0;
 
-		var input = document.getElementById(idFila);
+	var idFila = 'fila-unidad-'+numFila;
 
-		var inputContenido = input.value;
-		if ( inputContenido == '') {
-			input.classList.remove('con-contenido-unidad');
-		} else {
-			input.classList.add('con-contenido-unidad');
-		}
+	var input = document.getElementById(idFila);
 
-	});
+	var inputContenido = input.value;
+	if ( inputContenido == '') {
+		input.classList.remove('con-contenido-unidad');
+	} else {
+		input.classList.add('con-contenido-unidad');
+	}
 
-	// Guarda unidades
-	$('#guardar-unidad').on('click', (event) => {
+});
 
-		event.preventDefault();
+// Guarda unidades
+$('#guardar-unidad').on('click', (event) => {
 
-		inputsConContenido = document.getElementsByClassName('con-contenido-unidad');
+	event.preventDefault();
 
-		if (inputsConContenido.length <= 0) {
-			alert('No ha ingresado unidades de medida');
-			return;
-		}
+	inputsConContenido = document.getElementsByClassName('con-contenido-unidad');
 
-		var data = [];
-		for (var i = 0; i < inputsConContenido.length; i++) {
-			data.push(inputsConContenido[i]);
-		}
+	if (inputsConContenido.length <= 0) {
+		alert('No ha ingresado unidades de medida');
+		return;
+	}
 
-		formElements = document.getElementById('form-unidad').elements;
-		data.push(formElements[0]);
+	var data = [];
+	for (var i = 0; i < inputsConContenido.length; i++) {
+		data.push(inputsConContenido[i]);
+	}
 
-		$.ajax({
-			url: '/inventarios/alta_unidades/',
-			type: 'POST',
-			dataType: 'JSON',
-			data: data,
-			success: function(response) {
-				if (response['bandera'] == 0) {
-					alert(response['mensaje']);
-				} else {
-					$('#agrega-unidad-modal').modal('hide');
-					$('#snackbar').html('');
-					$('#snackbar').html(response['mensaje']);
-					var x = document.getElementById("snackbar");
-			  	x.className = "show";
-			  	setTimeout(function(){ 
-			  		x.className = x.className.replace("show", "");
-			  		window.location.reload(true);
-			  	}, 1000);
-			  	for (var i = 0; i < inputsConContenido.length; i++) {
-			  		console.log(inputsConContenido[i].value);
-			  		inputsConContenido[i].value = '';
-			  		inputsConContenido[i].classList.remove('con-contenido-unidad');
-					}
+	formElements = document.getElementById('form-unidad').elements;
+	data.push(formElements[0]);
+
+	$.ajax({
+		url: '/inventarios/alta_unidades/',
+		type: 'POST',
+		dataType: 'JSON',
+		data: data,
+		success: function(response) {
+			if (response['bandera'] == 0) {
+				alert(response['mensaje']);
+			} else {
+				$('#agrega-unidad-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1000);
+		  	for (var i = 0; i < inputsConContenido.length; i++) {
+		  		console.log(inputsConContenido[i].value);
+		  		inputsConContenido[i].value = '';
+		  		inputsConContenido[i].classList.remove('con-contenido-unidad');
 				}
-			},
-			error: function(error) {
-				console.log(error)
 			}
-		})
-
-	});
-
-	// Cambiamos la clase de proveedores cuando se está editando
-	$('#tabla-alta-proveedores tbody').on('keyup', 'td', function(event) {
-
-		var numFila = tablaAltaProveedores.cell(this).index().row;
-		// var numColumna = tablaAltaProveedores.cell(this).index().column;
-
-		var idNombre = 'fila-proveedor-nombre-'+numFila;
-		var idTelefono = 'fila-proveedor-telefono-'+numFila;
-		var idDireccion = 'fila-proveedor-direccion-'+numFila;
-
-		var inputNombre = document.getElementById(idNombre);
-		var inputTelefono = document.getElementById(idTelefono);
-		var inputDireccion = document.getElementById(idDireccion);
-
-		var contenidoInputNombre = document.getElementById(idNombre).value;
-		var contenidoInputTelefono = document.getElementById(idTelefono).value;
-		var contenidoInputDireccion = document.getElementById(idDireccion).value;
-
-		console.log(contenidoInputNombre);
-		console.log(contenidoInputTelefono);
-		console.log(contenidoInputDireccion);
-		if (contenidoInputNombre == '' && contenidoInputTelefono == '' && contenidoInputDireccion == '') {
-			inputNombre.classList.remove('con-contenido-proveedor');
-			inputTelefono.classList.remove('con-contenido-proveedor');
-			inputDireccion.classList.remove('con-contenido-proveedor');
-			document.getElementById('guardar-proveedor').disabled = false;
-		} else if (contenidoInputNombre == '' || contenidoInputTelefono == '' || contenidoInputDireccion == '') {
-			console.log('no entro aki?');
-			inputNombre.classList.remove('con-contenido-proveedor');
-			inputTelefono.classList.remove('con-contenido-proveedor');
-			inputDireccion.classList.remove('con-contenido-proveedor');
-			document.getElementById('guardar-proveedor').disabled = true;
-		} else {
-			inputNombre.classList.add('con-contenido-proveedor');
-			inputTelefono.classList.add('con-contenido-proveedor');
-			inputDireccion.classList.add('con-contenido-proveedor');
-			document.getElementById('guardar-proveedor').disabled = false;
+		},
+		error: function(error) {
+			console.log(error)
 		}
+	})
 
-	});
+});
 
-	// Guarda proveedores
-	$('#guardar-proveedor').on('click', (event) => {
+// Cambiamos la clase de proveedores cuando se está editando
+$('#tabla-alta-proveedores tbody').on('keyup', 'td', function(event) {
 
-		event.preventDefault();
+	var numFila = tablaAltaProveedores.cell(this).index().row;
+	// var numColumna = tablaAltaProveedores.cell(this).index().column;
 
-		inputsConContenido = document.getElementsByClassName('con-contenido-proveedor');
+	var idNombre = 'fila-proveedor-nombre-'+numFila;
+	var idTelefono = 'fila-proveedor-telefono-'+numFila;
+	var idDireccion = 'fila-proveedor-direccion-'+numFila;
 
-		if (inputsConContenido.length <= 0) {
-			alert('No ha ingresado datos del proveedor');
-			return;
-		}
+	var inputNombre = document.getElementById(idNombre);
+	var inputTelefono = document.getElementById(idTelefono);
+	var inputDireccion = document.getElementById(idDireccion);
 
-		var data = [];
-		for (var i = 0; i < inputsConContenido.length; i++) {
-			data.push(inputsConContenido[i]);
-		}
+	var contenidoInputNombre = document.getElementById(idNombre).value;
+	var contenidoInputTelefono = document.getElementById(idTelefono).value;
+	var contenidoInputDireccion = document.getElementById(idDireccion).value;
 
-		formElements = document.getElementById('form-proveedor').elements;
-		data.push(formElements[0]);
+	console.log(contenidoInputNombre);
+	console.log(contenidoInputTelefono);
+	console.log(contenidoInputDireccion);
+	if (contenidoInputNombre == '' && contenidoInputTelefono == '' && contenidoInputDireccion == '') {
+		inputNombre.classList.remove('con-contenido-proveedor');
+		inputTelefono.classList.remove('con-contenido-proveedor');
+		inputDireccion.classList.remove('con-contenido-proveedor');
+		document.getElementById('guardar-proveedor').disabled = false;
+	} else if (contenidoInputNombre == '' || contenidoInputTelefono == '' || contenidoInputDireccion == '') {
+		console.log('no entro aki?');
+		inputNombre.classList.remove('con-contenido-proveedor');
+		inputTelefono.classList.remove('con-contenido-proveedor');
+		inputDireccion.classList.remove('con-contenido-proveedor');
+		document.getElementById('guardar-proveedor').disabled = true;
+	} else {
+		inputNombre.classList.add('con-contenido-proveedor');
+		inputTelefono.classList.add('con-contenido-proveedor');
+		inputDireccion.classList.add('con-contenido-proveedor');
+		document.getElementById('guardar-proveedor').disabled = false;
+	}
 
-		console.log(data);
+});
 
-		$.ajax({
-			url: '/inventarios/alta_proveedores/',
-			type: 'POST',
-			dataType: 'JSON',
-			data: data,
-			success: function(response) {
-				if (response['bandera'] == 0) {
-					alert(response['mensaje']);
-				} else {
-					$('#agrega-proveedor-modal').modal('hide');
-					$('#snackbar').html('');
-					$('#snackbar').html(response['mensaje']);
-					var x = document.getElementById("snackbar");
-			  	x.className = "show";
-			  	setTimeout(function(){ 
-			  		x.className = x.className.replace("show", "");
-			  		window.location.reload(true);
-			  	}, 2000);
-				}
-			},
-			error: function(error) {
-				console.log(error)
+// Guarda proveedores
+$('#guardar-proveedor').on('click', (event) => {
+
+	event.preventDefault();
+
+	inputsConContenido = document.getElementsByClassName('con-contenido-proveedor');
+
+	if (inputsConContenido.length <= 0) {
+		alert('No ha ingresado datos del proveedor');
+		return;
+	}
+
+	var data = [];
+	for (var i = 0; i < inputsConContenido.length; i++) {
+		data.push(inputsConContenido[i]);
+	}
+
+	formElements = document.getElementById('form-proveedor').elements;
+	data.push(formElements[0]);
+
+	console.log(data);
+
+	$.ajax({
+		url: '/inventarios/alta_proveedores/',
+		type: 'POST',
+		dataType: 'JSON',
+		data: data,
+		success: function(response) {
+			if (response['bandera'] == 0) {
+				alert(response['mensaje']);
+			} else {
+				$('#agrega-proveedor-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 2000);
 			}
-		});
-
+		},
+		error: function(error) {
+			console.log(error)
+		}
 	});
 
-	// Función para validar si los dos select de categoría y de kilataje ya tienen valores para poder hacer uso de función ajax
-	// $('.combo-barcode-ajax').on('change', () => {
-	// 	if (selectCategoria.value != '' && selectKilataje.value != '') {
-	// 		$.ajax({
-	// 			url: '/inventarios/busca_codigo_barras/'+selectCategoria.value+'/'+selectKilataje.value,
-	// 			type: 'GET',
-	// 			dataType: 'JSON',
-	// 			success: function(response) {
-	// 				if (response['barcode'] == null) {
-	// 					var parrafo = document.createElement('p');
-	// 					parrafo.classList.add('h5');
-	// 					parrafo.classList.add('text-center');
+});
 
-	// 					var categoria = selectCategoria.options[selectCategoria.selectedIndex].text;
-	// 					var kilataje = selectKilataje.options[selectKilataje.selectedIndex].text;
-	// 					var node = document.createTextNode('No existe código de barras para '+categoria+' - '+kilataje);
-
-	// 					parrafo.textContent = '';
-	// 					parrafo.appendChild(node);
-
-	// 					var elemento = document.getElementById('mensaje-codigo-barras');
-	// 					elemento.textContent = '';
-	// 					elemento.appendChild(parrafo);
-
-	// 					$('#agregaCodigoModal').modal({
-	// 						show: true,
-	// 						backdrop: 'static',
- //    					keyboard: false
-	// 					});
-						
-	// 					return;
-	// 				}
-	// 				document.getElementById('barcode-input').value = response['barcode'];
-	// 			},
-	// 			error: function(response) {
-	// 				console.log('ALGO TRONO NO PUEDE SER:')
-	// 				console.log(response)
-	// 			}
-	// 		});
-	// 	}
-
-	// });
-
-	// // Verificamos si existen mensajes que nos envía el servidor
-	// const mensajes = document.getElementById("mensajes").children;
-	// for (var i = 0; i < mensajes.length; i++) {
-	// 	// Get the snackbar DIV
- //  	var x = document.getElementById("snackbar");
- //  	// Add the "show" class to DIV
- //  	x.className = "show";
- //  	// After 3 seconds, remove the show class from DIV
- //  	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-	// }
-
-// }
 
 // Función que muestra el modal para editar categoría
 const editarCategoriaModal = (categoria_id) => {
@@ -736,13 +678,14 @@ const editarCodigoModal = (codigo_id) => {
 	var codigo_separado = codigo_id.split('-');
 
 	var id = codigo_separado[0];
-	var nombre_categoria = codigo_separado[1];
-	var nombre_kilataje = codigo_separado[2];
+	var nombre_codigo = codigo_separado[1]
+	var nombre_categoria = codigo_separado[2];
+	var nombre_kilataje = codigo_separado[3];
 
 	// console.log(id);
 	// console.log(codigo_separado);
 
-	$('#input-editar-codigo').val(id);
+	$('#input-editar-codigo').val(nombre_codigo);
 
 	// $('#encabezado-codigo').html('Editar Código de Barras para '+nombre_categoria+' - '+nombre_kilataje);
 

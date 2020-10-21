@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+{% block css_variables %}
+	<link rel="stylesheet" type="text/css" href="{% static '/css/Inventarios/alta_productos.css' %}">
+{% endblock %}
+
+{% block content %}
+
+	<div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h3 class="m-0 font-weight-bold text-primary">Alta Productos</h3>
+    </div>
+    <div class="card-body">
+
+    	<!-- Div con los mensajes que envía el servidor -->
+			<div id="snackbar"></div>
+    	<!-- Termina div con los mensajes que envía el servidor -->
+
+    	<form id="form-producto">
+    		{% csrf_token%}
+
+	    	<!-- Tabla para añadir productos -->
+				<div class="row">
+					<div class="col-xl-12">
+						<div class="table-responsive">
+							<table class="table" id="tabla-alta-productos">
+								<thead>
+									<tr>
+										<th>Categoría</th>
+										<th>Kilataje</th>
+										<th>Código de Barras</th>
+										<th>Cantidad</th>
+										<th>Unidad de Medida</th>
+										<th>Proveedor</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for i in cantidad_filas %}
+										<tr>
+											<td>
+												<div class="{{ i }}">
+													{% render_field product_form.category|add_class:"form-control combo-barcode-ajax" %}
+												</div>
+											</td>
+											<td>
+												<div class="{{ i }}">
+													{% render_field product_form.kilate|add_class:"form-control combo-barcode-ajax" %}
+												</div>
+											</td>
+											<td>
+												<div class="{{ i }}">
+													{%render_field product_form.barcode|attr:"disabled='disabled'"|add_class:"form-control" %}		
+												</div>
+											</td>
+											<td>
+												<div class="{{ i }}">
+													{% render_field product_form.quantity|add_class:"form-control" %}
+												</div>
+											</td>
+											<td>
+												<div class="{{ i }}">
+													{% render_field product_form.unit_measurement|add_class:"form-control" %}
+												</div>
+											</td>
+											<td>
+												<div class="{{ i }}">
+													{% render_field product_form.vendor|add_class:"form-control" %}
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- Termina tabla para añadir productos -->
+
+				<hr>
+				<br>
+
+				<div class="row justify-content-center">
+					<div class="col-xl-8">
+						<button type="submit" class="btn btn-success boton-guardar" id="guardar-productos" disabled="disabled">Guardar Productos</button>
+					</div>
+				</div>
+
+			</form>
+
+    </div>
+	</div>
+
+{% endblock %}
+
+
+{% block scripts_variables %}
+	<script type="text/javascript" src="{% static '/js/inventarios/alta_productos.js' %}"></script>
+{% endblock %}

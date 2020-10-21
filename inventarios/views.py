@@ -101,7 +101,7 @@ def busca_codigo_barras(request, category, kilate):
 				kilate=id_kilataje
 			)
 			print('codigo barras: ', codigo_barras)
-			data = {'barcode': codigo_barras.barcode}
+			data = {'barcode': codigo_barras.barcode_id}
 		except Barcode.DoesNotExist:
 			data = {'barcode': None}
 		
@@ -126,6 +126,91 @@ def administrar_catalogos(request):
 		'proveedores': proveedores,
 		'codigos': codigos}
 	return render(request, 'inventarios/administrar_catalogos.html', contexto)
+
+def alta_productos(request):
+	cantidad_filas = range(10)
+	cantidad_columnas = range(6)
+	product_form = ProductForm(auto_id=False)
+	contexto = {
+		'cantidad_filas': cantidad_filas,
+		'cantidad_columnas': cantidad_columnas,
+		'product_form': product_form 
+	}
+
+	if request.is_ajax():
+		form = request.POST
+
+		categorias = []
+		kilatajes = []
+		codigos_barras = []
+		cantidades = []
+		unidades_de_medida = []
+		proveedores = []
+		for key in request.POST:
+			if key == 'category':
+				valuelist = request.POST.getlist(key)
+				categorias.extend(['%s' % (val) for val in valuelist])
+			elif key == 'kilate':
+				valuelist = request.POST.getlist(key)
+				kilatajes.extend(['%s' % (val) for val in valuelist])
+			elif key == 'barcode':
+				valuelist = request.POST.getlist(key)
+				codigos_barras.extend(['%s' % (val) for val in valuelist])
+			elif key == 'quantity':
+				valuelist = request.POST.getlist(key)
+				cantidades.extend(['%s' % (val) for val in valuelist])
+			elif key == 'unit_measurement':
+				valuelist = request.POST.getlist(key)
+				unidades_de_medida.extend(['%s' % (val) for val in valuelist])
+			elif key == 'vendor':
+				valuelist = request.POST.getlist(key)
+				proveedores.extend(['%s' % (val) for val in valuelist])
+
+		ningun_producto_encontrado = 0
+		productos_para_agregar = []
+		indice = 0
+		for codigo in codigos_barras:
+			# print('NOMBRE: ', nombre)
+			# print('TELEFONO: ', telefonos[indice])
+			# print('DIRECCION: ', direcciones[indice])
+			try:
+				producto_encontrado = Product.objects.get(
+					category=categorias[indice],
+					kilate=kilatajes[indice],
+					vendor=proveedores[indice])
+				mensaje = {'mensaje': 'El producto '+producto_encontrado.category+' - '
+				+producto_encontrado.kilate+
+				' con proveedor '+producto_encontrado.vendor+' ya existe, favor de omitirlo', 'bandera': 0}
+				response = JsonResponse(mensaje)
+				productos_para_agregar = []
+				return response
+			except Product.DoesNotExist:
+				ningun_producto_encontrado = 1
+				categoria = Category.objects.get(category_id=categorias[indice])
+				kilataje = Kilate.objects.get(kilate_id=kilatajes[indice])
+				codigo_barra = Barcode.objects.get(barcode_id=codigo)
+				unidad = UnitMeasurement.objects.get(unit_measurement_id=unidades_de_medida[indice])
+				proveedor = Vendor.objects.get(vendor_id=proveedores[indice])
+				producto_nuevo = Product(
+					category=categoria, 
+					kilate=kilataje, 
+					barcode=codigo_barra,
+					quantity=cantidades[indice],
+					unit_measurement=unidad,
+					vendor=proveedor)
+				productos_para_agregar.append(producto_nuevo)
+			indice += 1
+
+		if ningun_producto_encontrado == 1:
+			Product.objects.bulk_create(productos_para_agregar)
+			mensaje = {'mensaje': 'Productos agregados exitosamente', 'bandera': 1}
+			response = JsonResponse(mensaje)
+			return response
+
+		response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
+		return response
+
+	return render(request, 'inventarios/alta_productos.html', contexto)
 
 def alta_categorias(request):
 	if request.is_ajax():
@@ -294,9 +379,9 @@ def alta_codigos(request):
 	codigos_para_agregar = []
 	indice = 0
 	for codigo in codigos:
-		# print('CATEGORIA: ', categorias[indice])
-		# print('KILATAJE: ', kilatajes[indice])
-		# print('CÓDIGO: ', codigo)
+		print('CATEGORIA: ', categorias[indice])
+		print('KILATAJE: ', kilatajes[indice])
+		print('CÓDIGO: ', codigo)
 		try:
 			codigo_encontrado = Barcode.objects.get(category=categorias[indice], kilate=kilatajes[indice])
 			# print('KE ENCONTRÓ: ', codigo_encontrado)
@@ -359,17 +444,30 @@ def editar_kilataje(request, pk):
 	return response
 
 def editar_codigo(request, pk):
-	codigo_viejo = Barcode.objects.get(barcode=pk)
+	codigo = Barcode.objects.get(barcode_id=pk)
 
 	if request.method == 'POST':
-		categoria = Category.objects.get(name=codigo_viejo.category)
-		kilataje = Kilate.objects.get(name=codigo_viejo.kilate)
-		codigo_nuevo = Barcode(barcode=request.POST['barcode'], category=categoria, kilate=kilataje)
-		print('CODIGO NUEVO: ', codigo_nuevo)
-		codigo_viejo.delete()
+		codigo_nuevo = BarcodeForm(request.POST, instance=codigo)
 		codigo_nuevo.save()
 		response = JsonResponse({'mensaje': 'Código de Barras actualizado'})
 		return response
+
+	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
+	return response
+	# 	return response
+		# categoria = Category.objects.get(name=codigo_viejo.category)
+		# kilataje = Kilate.objects.get(name=codigo_viejo.kilate)
+		# codigo_nuevo = Barcode(barcode=request.POST['barcode'], category=categoria, kilate=kilataje)
+
+	# if request.method == 'POST':
+	# 	categoria = Category.objects.get(name=codigo_viejo.category)
+	# 	kilataje = Kilate.objects.get(name=codigo_viejo.kilate)
+	# 	codigo_nuevo = Barcode(barcode=request.POST['barcode'], category=categoria, kilate=kilataje)
+	# 	print('CODIGO NUEVO: ', codigo_nuevo)
+	# 	codigo_viejo.delete()
+	# 	codigo_nuevo.save()
+	# 	response = JsonResponse({'mensaje': 'Código de Barras actualizado'})
+	# 	return response
 
 def editar_unidad(request, pk):
 	unidad = UnitMeasurement.objects.get(unit_measurement_id=pk)
