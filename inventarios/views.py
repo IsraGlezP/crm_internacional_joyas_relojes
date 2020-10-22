@@ -81,15 +81,6 @@ def actualiza_producto(request, pk):
 	contexto = {'form': form}
 	return render(request, 'inventarios/producto_form.html', contexto)
 
-def elimina_producto(request, pk):
-	print('llave: ', pk)
-	producto = Product.objects.get(product_id=pk)
-	print('producto: ', producto)
-	if request.method == 'GET':
-		producto.delete()
-		messages.success(request, 'Producto Eliminado')
-		return redirect('inventarios')
-
 def busca_codigo_barras(request, category, kilate):
 	if request.method == 'GET':
 		id_categoria = category
@@ -128,7 +119,7 @@ def administrar_catalogos(request):
 	return render(request, 'inventarios/administrar_catalogos.html', contexto)
 
 def alta_productos(request):
-	cantidad_filas = range(10)
+	cantidad_filas = range(200)
 	cantidad_columnas = range(6)
 	product_form = ProductForm(auto_id=False)
 	contexto = {
@@ -178,9 +169,9 @@ def alta_productos(request):
 					category=categorias[indice],
 					kilate=kilatajes[indice],
 					vendor=proveedores[indice])
-				mensaje = {'mensaje': 'El producto '+producto_encontrado.category+' - '
-				+producto_encontrado.kilate+
-				' con proveedor '+producto_encontrado.vendor+' ya existe, favor de omitirlo', 'bandera': 0}
+				mensaje = {'mensaje': 'El producto '+producto_encontrado.category.name+' - '
+				+producto_encontrado.kilate.name+
+				' con proveedor '+producto_encontrado.vendor.name+' ya existe, favor de omitirlo', 'bandera': 0}
 				response = JsonResponse(mensaje)
 				productos_para_agregar = []
 				return response
@@ -489,12 +480,66 @@ def editar_proveedor(request, pk):
 		form = VendorForm(request.POST, instance=proveedor)
 		if form.is_valid():
 			form.save()
-			response = JsonResponse({'mensaje': 'Proveedor actualizado|'})
+			response = JsonResponse({'mensaje': 'Proveedor actualizado'})
 			return response
 	print('FORM: ', form)
 	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
 	return response
 
+# FUNCIONES PARA ELIMINAR
+def elimina_producto(request, pk):
+	print('llave: ', pk)
+	producto = Product.objects.get(product_id=pk)
+	print('producto: ', producto)
+	if request.method == 'GET':
+		producto.delete()
+		messages.success(request, 'Producto Eliminado')
+		return redirect('inventarios')
+
+def eliminar_categoria(request, pk):
+	print('llave: ', pk)
+	categoria = Category.objects.get(category_id=pk)
+	print('categoria: ', categoria)
+	if request.method == 'POST':
+		categoria.delete()
+		response = JsonResponse({'mensaje': 'Categoría eliminada'})
+		return response
+
+def eliminar_kilataje(request, pk):
+	print('llave: ', pk)
+	kilataje = Kilate.objects.get(kilate_id=pk)
+	print('kilataje: ', kilataje)
+	if request.method == 'POST':
+		kilataje.delete()
+		response = JsonResponse({'mensaje': 'Kilataje eliminado'})
+		return response
+
+def eliminar_codigo(request, pk):
+	print('llave: ', pk)
+	codigo = Barcode.objects.get(barcode_id=pk)
+	print('codigo: ', codigo)
+	if request.method == 'POST':
+		codigo.delete()
+		response = JsonResponse({'mensaje': 'Codigo eliminado'})
+		return response
+
+def eliminar_unidad(request, pk):
+	print('llave: ', pk)
+	unidad = UnitMeasurement.objects.get(unit_measurement_id=pk)
+	print('unidad: ', unidad)
+	if request.method == 'POST':
+		unidad.delete()
+		response = JsonResponse({'mensaje': 'Unidad de Medida eliminada'})
+		return response
+
+def eliminar_proveedor(request, pk):
+	print('llave: ', pk)
+	proveedor = Vendor.objects.get(vendor_id=pk)
+	print('proveedor: ', proveedor)
+	if request.method == 'POST':
+		proveedor.delete()
+		response = JsonResponse({'mensaje': 'Proveedor eliminado'})
+		return response
 
 
 

@@ -11,7 +11,7 @@ const eliminarProductoModal = (product_id) => {
 
 	var columnasOmitir = 2;
 	var encabezados = ['Categoría:', 'Cantidad:', 'Unidad de Medida:', 'Kilataje:', 'Proveedor:', 'Código de Barras:']
-	var modalBody = "<table class='table table-striped text-left'>";
+	var modalBody = "<p>¿Estás seguro de eliminar el siguiente producto?</p><table class='table table-striped text-left'>";
 	for (var i = 0; i < data_array.length - columnasOmitir; i++) {
 		modalBody = modalBody + '<tr><th>'+encabezados[i]+'</th><td>'+data_array[i]+'</td></tr>';
 	}

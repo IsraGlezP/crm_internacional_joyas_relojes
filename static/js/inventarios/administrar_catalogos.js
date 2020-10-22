@@ -858,3 +858,249 @@ function cambia_clase_codigos_modal(numFila){
 			document.getElementById('guardar-codigo').disabled = false;
 		}
 }
+
+const eliminarCategoriaModal = (categoria_id) => {
+	console.log(categoria_id);
+
+	var categoria_separada = categoria_id.split('-');
+
+	var id = categoria_separada[0];
+	var nombre_categoria = categoria_separada[1];
+
+	console.log(id);
+	console.log(nombre_categoria);
+
+	var modalBody = "<p class='h5 text-center'>¿Estás seguro de eliminar <span class='font-weight-bold'>" + nombre_categoria + "</span> permanentemente?</p>"+
+									"<p class='h6 text-center'>Esta acción no se puede revertir</p>";
+
+	$('#eliminar-categoria-modal .modal-body').html(modalBody);
+
+	$('#form-eliminar-categoria').attr('action', '/inventarios/eliminar_categoria/'+id+'/');
+
+	$('#eliminar-categoria-modal').modal('show');
+
+}
+
+$('#guardar-eliminar-categoria').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-eliminar-categoria').attr('action'),
+			type: $('#form-eliminar-categoria').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-eliminar-categoria').serialize(),
+			success: function(response) {
+				$('#eliminar-categoria-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1500);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+const eliminarKilatajeModal = (kilataje_id) => {
+	console.log(kilataje_id);
+
+	var kilataje_separado = kilataje_id.split('-');
+
+	var id = kilataje_separado[0];
+	var nombre_kilataje = kilataje_separado[1];
+
+	console.log(id);
+	console.log(nombre_kilataje);
+
+	var modalBody = "<p class='h5 text-center'>¿Estás seguro de eliminar <span class='font-weight-bold'>" + nombre_kilataje + "</span> permanentemente?</p>"+
+									"<p class='h6 text-center'>Esta acción no se puede revertir</p>";
+
+	$('#eliminar-kilataje-modal .modal-body').html(modalBody);
+
+	$('#form-eliminar-kilataje').attr('action', '/inventarios/eliminar_kilataje/'+id+'/');
+
+	$('#eliminar-kilataje-modal').modal('show');
+	
+}
+
+$('#guardar-eliminar-kilataje').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-eliminar-kilataje').attr('action'),
+			type: $('#form-eliminar-kilataje').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-eliminar-kilataje').serialize(),
+			success: function(response) {
+				$('#eliminar-kilataje-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1500);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+const eliminarCodigoModal = (codigo_id) => {
+	console.log(codigo_id);
+
+	var codigo_separado = codigo_id.split('-');
+
+	var id = codigo_separado[0];
+	var nombre_codigo = codigo_separado[1]
+	var nombre_categoria = codigo_separado[2];
+	var nombre_kilataje = codigo_separado[3];
+
+	var modalBody = "<p class='h5 text-center'>¿Estás seguro de eliminar <span class='font-weight-bold'>" + nombre_codigo + "</span> permanentemente?</p>"+
+									"<p class='h6 text-center'>Esta acción no se puede revertir</p>";
+
+	$('#eliminar-codigo-modal .modal-body').html(modalBody);
+
+	$('#form-eliminar-codigo').attr('action', '/inventarios/eliminar_codigo/'+id+'/');
+
+	$('#eliminar-codigo-modal').modal('show');
+	
+}
+
+$('#guardar-eliminar-codigo').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-eliminar-codigo').attr('action'),
+			type: $('#form-eliminar-codigo').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-eliminar-codigo').serialize(),
+			success: function(response) {
+				$('#eliminar-codigo-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1500);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+const eliminarUnidadModal = (unidad_id) => {
+	console.log(unidad_id);
+
+	var unidad_separada = unidad_id.split('-');
+
+	var id = unidad_separada[0];
+	var nombre_unidad = unidad_separada[1];
+
+	console.log(id);
+	console.log(nombre_unidad);
+
+	var modalBody = "<p class='h5 text-center'>¿Estás seguro de eliminar <span class='font-weight-bold'>" + nombre_unidad + "</span> permanentemente?</p>"+
+									"<p class='h6 text-center'>Esta acción no se puede revertir</p>";
+
+	$('#eliminar-unidad-modal .modal-body').html(modalBody);
+
+	$('#form-eliminar-unidad').attr('action', '/inventarios/eliminar_unidad/'+id+'/');
+
+	$('#eliminar-unidad-modal').modal('show');
+	
+}
+
+$('#guardar-eliminar-unidad').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-eliminar-unidad').attr('action'),
+			type: $('#form-eliminar-unidad').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-eliminar-unidad').serialize(),
+			success: function(response) {
+				$('#eliminar-unidad-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1500);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+
+// Función que muestra el modal para editar proveedor
+const eliminarProveedorModal = (proveedor_id) => {
+
+	console.log(proveedor_id);
+
+	var proveedor_separado = proveedor_id.split('-');
+
+	var id = proveedor_separado[0];
+	var nombre_proveedor = proveedor_separado[1];
+	var telefono = proveedor_separado[2];
+	var direccion = proveedor_separado[3];
+
+	var modalBody = "<p class='h5 text-center'>¿Estás seguro de eliminar <span class='font-weight-bold'>" + nombre_proveedor + "</span> permanentemente?</p>"+
+									"<p class='h6 text-center'>Esta acción no se puede revertir</p>";
+
+	$('#eliminar-proveedor-modal .modal-body').html(modalBody);
+
+	$('#form-eliminar-proveedor').attr('action', '/inventarios/eliminar_proveedor/'+id+'/');
+
+	$('#eliminar-proveedor-modal').modal('show');
+
+}
+
+$('#guardar-eliminar-proveedor').on('click', (event) => {
+
+	event.preventDefault();
+
+	$.ajax({
+			url: $('#form-eliminar-proveedor').attr('action'),
+			type: $('#form-eliminar-proveedor').attr('method'),
+			dataType: 'JSON',
+			data: $('#form-eliminar-proveedor').serialize(),
+			success: function(response) {
+				$('#eliminar-proveedor-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1500);
+			},
+			error: function(error) {
+				console.log(error)
+			}
+		});
+
+});
+

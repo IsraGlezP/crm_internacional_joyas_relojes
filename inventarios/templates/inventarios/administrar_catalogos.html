@@ -19,7 +19,13 @@
 		    </div>
 		    <div class="card-body">
 		    	<!-- Div con los mensajes que envía el servidor -->
-					<div id="snackbar"></div>
+					<div id="snackbar">
+						{% if messages %}
+							{% for message in messages %}
+								{{ message }}
+							{% endfor %}
+						{% endif %}
+					</div>
     			<!-- Termina div con los mensajes que envía el servidor -->
 
 		    	<!-- Botones para agregar distintos elementos -->
@@ -81,7 +87,7 @@
 		    								<input id="{{ categoria.category_id }}-{{ categoria }}" onclick="editarCategoriaModal(this.id)" type="button" class="btn btn-outline-success boton-editar-categoria" value="Editar">
 		    							</td>
 		    							<td>
-		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    								<input id="{{ categoria.category_id }}-{{ categoria }}" onclick="eliminarCategoriaModal(this.id)" type="button" class="btn btn-outline-danger" value="Eliminar">
 		    							</td>
 		    						</tr>
 		    						{% endfor %}
@@ -110,7 +116,7 @@
 		    								<input id="{{ kilataje.kilate_id }}-{{ kilataje }}" onclick="editarKilatajeModal(this.id)" type="button" class="btn btn-outline-success boton-editar-kilataje" value="Editar">
 		    							</td>
 		    							<td>
-		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    								<input id="{{ kilataje.kilate_id }}-{{ kilataje }}" onclick="eliminarKilatajeModal(this.id)" type="button" class="btn btn-outline-danger" value="Eliminar">
 		    							</td>
 		    						</tr>
 		    						{% endfor %}
@@ -150,7 +156,7 @@
 		    								<input id="{{ codigo.barcode_id }}-{{ codigo.barcode }}-{{ codigo.category }}-{{ codigo.kilate }}" onclick="editarCodigoModal(this.id)" type="button" class="btn btn-outline-success" value="Editar">
 		    							</td>
 		    							<td>
-		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    								<input id="{{ codigo.barcode_id }}-{{ codigo.barcode }}-{{ codigo.category }}-{{ codigo.kilate }}" onclick="eliminarCodigoModal(this.id)" type="button" class="btn btn-outline-danger" value="Eliminar">
 		    							</td>
 		    						</tr>
 		    						{% endfor %}
@@ -179,7 +185,7 @@
 		    								<input id="{{ unidad.unit_measurement_id }}-{{ unidad }}" onclick="editarUnidadModal(this.id)" type="button" class="btn btn-outline-success" value="Editar">
 		    							</td>
 		    							<td>
-		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    								<input id="{{ unidad.unit_measurement_id }}-{{ unidad }}" onclick="eliminarUnidadModal(this.id)" type="button" class="btn btn-outline-danger" value="Eliminar">
 		    							</td>
 		    						</tr>
 		    						{% endfor %}
@@ -218,7 +224,7 @@
 		    								<input id="{{ proveedor.vendor_id }}-{{ proveedor.name }}-{{ proveedor.phone }}-{{ proveedor.address }}" onclick="editarProveedorModal(this.id)" type="button" class="btn btn-outline-success" value="Editar">
 		    							</td>
 		    							<td>
-		    								<input type="button" class="btn btn-outline-danger" value="Eliminar">
+		    								<input id="{{ proveedor.vendor_id }}-{{ proveedor.name }}-{{ proveedor.phone }}-{{ proveedor.address }}" onclick="eliminarProveedorModal(this.id)" type="button" class="btn btn-outline-danger" value="Eliminar">
 		    							</td>
 		    						</tr>
 		    						{% endfor %}
@@ -730,6 +736,131 @@
 	  </div>
 	</div>
 	<!--  Termina modal edita proveedor -->
+
+	<!-- Modal eliminar categoria -->
+	<div class="modal fade" id="eliminar-categoria-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-danger">
+	        <h5 class="modal-title text-white font-weight-bold">Eliminar Categoria</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="form-eliminar-categoria" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-danger" id="guardar-eliminar-categoria">Eliminar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal eliminar categoría -->
+
+	<!-- Modal eliminar kilataje -->
+	<div class="modal fade" id="eliminar-kilataje-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-danger">
+	        <h5 class="modal-title text-white font-weight-bold">Eliminar Kilataje</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="form-eliminar-kilataje" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-danger" id="guardar-eliminar-kilataje">Eliminar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal eliminar kilataje -->
+
+	<!-- Modal eliminar codigo -->
+	<div class="modal fade" id="eliminar-codigo-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-danger">
+	        <h5 class="modal-title text-white font-weight-bold">Eliminar Código de Barras</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="form-eliminar-codigo" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-danger" id="guardar-eliminar-codigo">Eliminar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal eliminar codigo -->
+
+	<!-- Modal eliminar unidad -->
+	<div class="modal fade" id="eliminar-unidad-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-danger">
+	        <h5 class="modal-title text-white font-weight-bold">Eliminar Código de Barras</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="form-eliminar-unidad" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-danger" id="guardar-eliminar-unidad">Eliminar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal eliminar unidad -->
+
+	<!-- Modal eliminar unidad -->
+	<div class="modal fade" id="eliminar-proveedor-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-danger">
+	        <h5 class="modal-title text-white font-weight-bold">Eliminar Proveedor</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="form-eliminar-proveedor" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-danger" id="guardar-eliminar-proveedor">Eliminar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal eliminar unidad -->
 
 	
 {% endblock %}
