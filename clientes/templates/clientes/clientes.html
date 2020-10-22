@@ -14,6 +14,39 @@
 		      <h3 class="m-0 font-weight-bold text-primary">Clientes</h3>
 		    </div>
 		    <div class="card-body">
+					<div class="row">
+						<div class="col-xl-12">
+							<div class="table-responsive">
+								<table class="table" id="tablaClientes">
+									<thead class="thead-dark">
+										<tr>
+											<th>Nombre</th>
+											<th>Apellido</th>
+											<th>Correo</th>
+											<th>Teléfono</th>
+											<th>Ver más</th>
+											<th>Editar</th>
+											<th>Eliminar</th>
+										</tr>
+									</thead>
+									<tbody>
+										{% for cliente in clientes %}
+										<tr>
+											<td>{{ cliente.first_name }}</td>
+											<td>{{ cliente.last_name }}</td>
+											<td>{{ cliente.email }}</td>
+											<td>{{ cliente.phone }}</td>
+											<td><input type="button" name="" value="Ver más" class="btn btn-outline-success"></td>
+											<td><input type="button" name="" value="Editar" class="btn btn-outline-warning"></td>
+											<td><input type="button" name="" value="Eliminar" class="btn btn-outline-danger"></td>
+										</tr>
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
 					<div class="row justify-content-center">
 						<div class="col-xl-3 col-md-6 mb-4">
 				      <div class="card border-left-primary shadow h-100 py-2">
@@ -21,7 +54,7 @@
 				          <div class="row no-gutters align-items-center">
 				            <div class="col mr-2">
 				              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Clientes Totales</div>
-				              <div class="h5 mb-0 font-weight-bold text-gray-800">122</div>
+				              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ clientes_totales }}</div>
 				            </div>
 				            <div class="col-auto">
 				           		<i class="fas fa-user-friends fa-2x text-gray-300"></i>
@@ -33,56 +66,11 @@
 					</div>
 					<div class="row justify-content-center">
 						<div class="col-xl-8">
-							<input type="button" class="btn btn-primary" id="add-item" name="add-item" value="Agregar cliente">
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-xl-12">
-							<div class="table-responsive">
-								<table class="table" id="tablaClientes">
-									<thead class="thead-dark">
-										<tr>
-											<th>Nombre</th>
-											<th>Correo</th>
-											<th>Teléfono</th>
-											<th></th>
-											<th></th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>Pedrito Sola</td>
-											<td>pedrito@gmail.com</td>
-											<td>7223235798</td>
-											<td><input type="button" name="" value="Ver más" class="btn btn-success"></td>
-											<td><input type="button" name="" value="Editar" class="btn btn-warning"></td>
-											<td><input type="button" name="" value="Eliminar" class="btn btn-danger"></td>
-										</tr>
-										<tr>
-											<td>Pedrito Sola</td>
-											<td>pedrito@gmail.com</td>
-											<td>7223235798</td>
-											<td><input type="button" name="" value="Ver más" class="btn btn-success"></td>
-											<td><input type="button" name="" value="Editar" class="btn btn-warning"></td>
-											<td><input type="button" name="" value="Eliminar" class="btn btn-danger"></td>
-										</tr>
-										<tr>
-											<td>Pedrito Sola</td>
-											<td>pedrito@gmail.com</td>
-											<td>7223235798</td>
-											<td><input type="button" name="" value="Ver más" class="btn btn-success"></td>
-											<td><input type="button" name="" value="Editar" class="btn btn-warning"></td>
-											<td><input type="button" name="" value="Eliminar" class="btn btn-danger"></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+							<input type="button" class="btn btn-primary" id="input-alta-cliente" name="add-item" value="Alta cliente">
 						</div>
 					</div>
 
-					<hr>
+				<!-- 	<hr>
 					<div class="row">
 						<div class="col-xl-2">
 							<img src="{% static '/images/default-user-image.png' %}" alt="Imagen de usuario" id="user-image" class="img-thumbnail">
@@ -155,10 +143,35 @@
 								</table>
 							</div>
 						</div>
-					</div>
+					</div> -->
+
 		    </div>
 		  </div>
 		</div>
+	</div>
+
+	<!-- Modal agregar cliente -->
+	<div class="modal fade" id="alta-cliente-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-success">
+	        <h5 class="modal-title text-white font-weight-bold">Alta Cliente</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="alta-cliente-form" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		        {{ form.as_p }}
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-success" id="guardar-editar-unidad">Guardar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
 	</div>
 {% endblock %}
 
