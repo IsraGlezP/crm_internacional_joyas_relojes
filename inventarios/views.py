@@ -9,6 +9,7 @@ from .filters import ProductFilter
 from .forms import *
 
 # Create your views here.
+
 def inventarios(request):
 	products = Product.objects.all()
 
@@ -117,6 +118,12 @@ def administrar_catalogos(request):
 		'proveedores': proveedores,
 		'codigos': codigos}
 	return render(request, 'inventarios/administrar_catalogos.html', contexto)
+
+###################################################################
+#																																	#
+# 									FUNCIONES PARA DAR DE ALTA 										#
+#																																	#
+###################################################################
 
 def alta_productos(request):
 	cantidad_filas = range(200)
@@ -408,17 +415,42 @@ def alta_codigos(request):
 	response = JsonResponse({'mensaje': 'Algo tronó no puede ser'})
 	return response
 
+###################################################################
+#																																	#
+# 									FUNCIONES PARA EDITAR 												#
+#																																	#
+###################################################################
+
+# Función que nos permite editar una categoría
+# Se verifica que la categoría no exista antes de atualizarla
+# Regresa una bandera en 0 si la categoría ya existe
+# Regresa una bandera en 1 indicando que se actualizó correctamente
 def editar_categoria(request, pk):
+
 	categoria = Category.objects.get(category_id=pk)
 
 	if request.method == 'POST':
+
 		form = CategoryForm(request.POST, instance=categoria)
+
 		if form.is_valid():
-			form.save()
-			response = JsonResponse({'mensaje': 'Categoría actualizada'})
+
+			try:
+				categoria_encontrada = Category.objects.get(name__iexact=request.POST['name'])
+				mensaje = 'La categoría '+categoria_encontrada.name+' ya existe, favor de ingresar un nombre distinto'
+				bandera = 0
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+			except Category.DoesNotExist:
+				form.save()
+				mensaje = 'Categoría actualizada'
+				bandera = 1
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+			
 			return response
 	
-	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
+	mensaje = 'Ocurrió un error'
+	bandera = 0
+	response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
 	return response
 
 def editar_kilataje(request, pk):
@@ -445,20 +477,6 @@ def editar_codigo(request, pk):
 
 	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
 	return response
-	# 	return response
-		# categoria = Category.objects.get(name=codigo_viejo.category)
-		# kilataje = Kilate.objects.get(name=codigo_viejo.kilate)
-		# codigo_nuevo = Barcode(barcode=request.POST['barcode'], category=categoria, kilate=kilataje)
-
-	# if request.method == 'POST':
-	# 	categoria = Category.objects.get(name=codigo_viejo.category)
-	# 	kilataje = Kilate.objects.get(name=codigo_viejo.kilate)
-	# 	codigo_nuevo = Barcode(barcode=request.POST['barcode'], category=categoria, kilate=kilataje)
-	# 	print('CODIGO NUEVO: ', codigo_nuevo)
-	# 	codigo_viejo.delete()
-	# 	codigo_nuevo.save()
-	# 	response = JsonResponse({'mensaje': 'Código de Barras actualizado'})
-	# 	return response
 
 def editar_unidad(request, pk):
 	unidad = UnitMeasurement.objects.get(unit_measurement_id=pk)
@@ -486,7 +504,12 @@ def editar_proveedor(request, pk):
 	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
 	return response
 
-# FUNCIONES PARA ELIMINAR
+###################################################################
+#																																	#
+# 									FUNCIONES PARA ELIMINAR 	 										#
+#																																	#
+###################################################################
+
 def elimina_producto(request, pk):
 	print('llave: ', pk)
 	producto = Product.objects.get(product_id=pk)

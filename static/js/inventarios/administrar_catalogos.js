@@ -591,6 +591,19 @@ const editarCategoriaModal = (categoria_id) => {
 
 }
 
+// Función que detecta cuando se escribe en el input de categoría.
+// Al momento de escribir se llama a la función que convierte
+// la primer letra de cada palabra en mayúscula.
+$('#input-editar-categoria').on('keyup', () => {
+
+	var texto = $('#input-editar-categoria').val();
+
+	var texto_convertido = capital_letter(texto);
+
+	$('#input-editar-categoria').val(texto_convertido);
+
+});
+
 $('#guardar-editar-categoria').on('click', (event) => {
 
 	event.preventDefault();
@@ -1103,4 +1116,25 @@ $('#guardar-eliminar-proveedor').on('click', (event) => {
 		});
 
 });
+
+// Función que permite convertir en mayúscula
+// la primer letra de cada palabra ingresada.
+// Recibe como parámetro la cadena de texto a convertir.
+// Regresa la cadena ya convertida.
+const capital_letter = (str) => {
+
+  str = str.split(" ");
+
+  for (var i = 0, x = str.length; i < x; i++) {
+
+  	if (str[i] != '') {
+
+      str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+
+  	}
+  	
+  }
+
+  return str.join(" ");
+}
 
