@@ -1,4 +1,17 @@
-var tablaInventarios = $('#tablaInventarios').DataTable();
+var tablaInventarios = $('#tablaInventarios').DataTable({
+	searching: false,
+	lengthChange: false,
+  bInfo: false,
+  pageLength: 10,
+	language: {
+  	zeroRecords: 'Sin resultados',
+  	search: 'Buscar:',
+  	paginate: {
+  		next: 'Siguiente',
+  		previous: 'Anterior'
+  	}
+  }
+});
 
 // Le agregamos la clase form-control a todos los elementos del form de filtros
 const formElements = document.getElementById('filtros').elements;

@@ -200,6 +200,12 @@ $('#tabla-alta-categorias tbody').on('keyup', 'tr', function(event) {
 
 	var input = document.getElementById(idFila);
 
+	// var texto = input.value;
+
+	var texto_convertido = capital_letter(input.value);
+
+	input.value = texto_convertido;
+
 	var inputContenido = input.value;
 	if ( inputContenido == '') {
 		input.classList.remove('con-contenido-categoria');
@@ -418,6 +424,10 @@ $('#tabla-alta-unidades tbody').on('keyup', 'tr', function(event) {
 
 	var input = document.getElementById(idFila);
 
+	var texto_convertido = capital_letter(input.value);
+
+	input.value = texto_convertido;
+
 	var inputContenido = input.value;
 	if ( inputContenido == '') {
 		input.classList.remove('con-contenido-unidad');
@@ -493,20 +503,27 @@ $('#tabla-alta-proveedores tbody').on('keyup', 'td', function(event) {
 	var inputTelefono = document.getElementById(idTelefono);
 	var inputDireccion = document.getElementById(idDireccion);
 
-	var contenidoInputNombre = document.getElementById(idNombre).value;
-	var contenidoInputTelefono = document.getElementById(idTelefono).value;
-	var contenidoInputDireccion = document.getElementById(idDireccion).value;
+	// var contenidoInputNombre = document.getElementById(idNombre).value;
+	// var contenidoInputTelefono = document.getElementById(idTelefono).value;
+	// var contenidoInputDireccion = document.getElementById(idDireccion).value;
 
-	console.log(contenidoInputNombre);
-	console.log(contenidoInputTelefono);
-	console.log(contenidoInputDireccion);
+	var contenidoInputNombre = capital_letter(inputNombre.value);
+	var contenidoInputTelefono = inputTelefono.value;
+	var contenidoInputDireccion = capital_letter(inputDireccion.value);
+
+	inputNombre.value = contenidoInputNombre;
+	inputDireccion.value = contenidoInputDireccion;
+
+	// console.log(contenidoInputNombre);
+	// console.log(contenidoInputTelefono);
+	// console.log(contenidoInputDireccion);
 	if (contenidoInputNombre == '' && contenidoInputTelefono == '' && contenidoInputDireccion == '') {
 		inputNombre.classList.remove('con-contenido-proveedor');
 		inputTelefono.classList.remove('con-contenido-proveedor');
 		inputDireccion.classList.remove('con-contenido-proveedor');
 		document.getElementById('guardar-proveedor').disabled = false;
 	} else if (contenidoInputNombre == '' || contenidoInputTelefono == '' || contenidoInputDireccion == '') {
-		console.log('no entro aki?');
+		// console.log('no entro aki?');
 		inputNombre.classList.remove('con-contenido-proveedor');
 		inputTelefono.classList.remove('con-contenido-proveedor');
 		inputDireccion.classList.remove('con-contenido-proveedor');
@@ -540,7 +557,7 @@ $('#guardar-proveedor').on('click', (event) => {
 	formElements = document.getElementById('form-proveedor').elements;
 	data.push(formElements[0]);
 
-	console.log(data);
+	// console.log(data);
 
 	$.ajax({
 		url: '/inventarios/alta_proveedores/',
@@ -760,6 +777,18 @@ const editarUnidadModal = (unidad_id) => {
 
 }
 
+// Función que envía el texto ingresado en la unidad de medida para convertir
+// en mayúscula la primer letra de cada palabra
+$('#input-editar-unidad').on('keyup', () => {
+
+	var texto = $('#input-editar-unidad').val();
+
+	var texto_convertido = capital_letter(texto);
+
+	$('#input-editar-unidad').val(texto_convertido);
+
+});
+
 $('#guardar-editar-unidad').on('click', (event) => {
 
 	event.preventDefault();
@@ -813,6 +842,30 @@ const editarProveedorModal = (proveedor_id) => {
 	$('#editar-proveedor-modal').modal('show');
 
 }
+
+// Función que envía el texto ingresado en el nombre del proveedor
+// para cambiar la primer letra de cada palabra en mayúscula
+$('#input-editar-proveedor-nombre').on('keyup', () => {
+
+	var texto = $('#input-editar-proveedor-nombre').val();
+
+	var texto_convertido = capital_letter(texto);
+
+	$('#input-editar-proveedor-nombre').val(texto_convertido);
+
+});
+
+// Función que envía el texto ingresado en la dirección del proveedor
+// para cambiar la primer letra de cada palabra en mayúscula
+$('#input-editar-proveedor-direccion').on('keyup', () => {
+
+	var texto = $('#input-editar-proveedor-direccion').val();
+
+	var texto_convertido = capital_letter(texto);
+
+	$('#input-editar-proveedor-direccion').val(texto_convertido);
+
+});
 
 $('#guardar-editar-proveedor').on('click', (event) => {
 
