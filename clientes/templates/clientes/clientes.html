@@ -14,6 +14,7 @@
 		      <h3 class="m-0 font-weight-bold text-primary">Clientes</h3>
 		    </div>
 		    <div class="card-body">
+		    	<div id="snackbar"></div>
 					<div class="row">
 						<div class="col-xl-12">
 							<div class="table-responsive">
@@ -36,9 +37,9 @@
 											<td>{{ cliente.last_name }}</td>
 											<td>{{ cliente.email }}</td>
 											<td>{{ cliente.phone }}</td>
-											<td><input type="button" name="" value="Ver más" class="btn btn-outline-success"></td>
-											<td><input type="button" name="" value="Editar" class="btn btn-outline-warning"></td>
-											<td><input type="button" name="" value="Eliminar" class="btn btn-outline-danger"></td>
+											<td><input type="button" value="Ver más" class="btn btn-outline-success"></td>
+											<td><input type="button" id="{{ cliente.client_id }}-{{ cliente.first_name }}-{{ cliente.last_name }}-{{ cliente.email }}-{{ cliente.phone }}" value="Editar" class="btn btn-outline-warning" onclick="editarClienteModal(this.id)"></td>
+											<td><input type="button" id="{{ cliente.client_id }}-{{ cliente.first_name }}-{{ cliente.last_name }}-{{ cliente.email }}-{{ cliente.phone }}" value="Eliminar" class="btn btn-outline-danger" onclick="eliminarClienteModal(this.id)"></td>
 										</tr>
 										{% endfor %}
 									</tbody>
@@ -167,12 +168,77 @@
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-		        <button type="submit" class="btn btn-success" id="guardar-editar-unidad">Guardar</button>
+		        <button type="submit" class="btn btn-success">Guardar</button>
 		      </div>
 	      </form>
 	    </div>
 	  </div>
 	</div>
+
+	<!-- Modal editar cliente -->
+	<div class="modal fade" id="editar-cliente-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-warning">
+	        <h5 class="modal-title text-white font-weight-bold">Editar Cliente</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="form-edita-cliente" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		      	<div class="form-group">
+		      		<label for="input-editar-cliente-nombre">Nombre</label>
+		      		<input type="text" name="first_name" class="form-control" id="input-editar-cliente-nombre">
+		      	</div>
+		      	<div class="form-group">
+		      		<label for="input-editar-cliente-apellido">Apellido</label>
+		      		<input type="text" name="last_name" class="form-control" id="input-editar-cliente-apellido">
+		      	</div>
+		      	<div class="form-group">
+		      		<label for="input-editar-cliente-correo">Correo</label>
+		      		<input type="email" name="email" class="form-control" id="input-editar-cliente-correo">
+		      	</div>
+		      	<div class="form-group">
+		      		<label for="input-editar-cliente-telefono">Telefono</label>
+		      		<input type="number" name="phone" class="form-control" id="input-editar-cliente-telefono">
+		      	</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-warning" id="guardar-editar-cliente">Guardar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal para editar cliente -->
+
+	<!-- Modal eliminar cliente -->
+	<div class="modal fade" id="eliminar-cliente-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header bg-gradient-danger">
+	        <h5 class="modal-title text-white font-weight-bold">Eliminar cliente</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <form id="form-eliminar-cliente" method="POST">
+	      	{% csrf_token %}
+		      <div class="modal-body">
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+		        <button type="submit" class="btn btn-danger" id="guardar-eliminar-cliente">Eliminar</button>
+		      </div>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+	<!-- Termina modal eliminar cliente -->
 {% endblock %}
 
 {% block scripts_variables %}

@@ -129,12 +129,6 @@ var tablaProveedores = $('#tabla-proveedores').DataTable({
   }
 });
 
-// Al select de categorías y de kilataje le agregamos una clase específica para utilizarlos con ajax
-// const selectCategoria = document.getElementById('id_category');
-// selectCategoria.classList.add('combo-barcode-ajax');
-// const selectKilataje = document.getElementById('id_kilate');
-// selectKilataje.classList.add('combo-barcode-ajax');
-
 // Muestra modal para agregar categoría
 $('#boton-agregar-categoria').on('click', () => {
 	$('#agrega-categoria-modal').modal('show');
@@ -608,6 +602,13 @@ const editarCategoriaModal = (categoria_id) => {
 
 }
 
+// Colocamos el cursor en el input para editar categoría cada que se muestre el modal
+$('#editar-categoria-modal').on('shown.bs.modal', function () {
+
+	document.getElementById('input-editar-categoria').focus();
+	
+});
+
 // Función que detecta cuando se escribe en el input de categoría.
 // Al momento de escribir se llama a la función que convierte
 // la primer letra de cada palabra en mayúscula.
@@ -631,19 +632,24 @@ $('#guardar-editar-categoria').on('click', (event) => {
 			dataType: 'JSON',
 			data: $('#form-edita-categoria').serialize(),
 			success: function(response) {
+
 				if (response['bandera'] == 0) {
 					alert(response['mensaje']);
-				} else {
-					$('#editar-categoria-modal').modal('hide');
-					$('#snackbar').html('');
-					$('#snackbar').html(response['mensaje']);
-					var x = document.getElementById("snackbar");
-			  	x.className = "show";
-			  	setTimeout(function(){ 
-			  		x.className = x.className.replace("show", "");
-			  		window.location.reload(true);
-			  	}, 2000);
+					return;
 				}
+
+				$('#editar-categoria-modal').modal('hide');
+				$('#snackbar').html('');
+				$('#snackbar').html(response['mensaje']);
+
+				var x = document.getElementById("snackbar");
+		  	x.className = "show";
+
+		  	setTimeout(function(){ 
+		  		x.className = x.className.replace("show", "");
+		  		window.location.reload(true);
+		  	}, 1500);
+
 			},
 			error: function(error) {
 				console.log(error)
@@ -673,6 +679,13 @@ const editarKilatajeModal = (kilataje_id) => {
 
 }
 
+// Colocamos el cursor en el input para editar categoría cada que se muestre el modal
+$('#editar-kilataje-modal').on('shown.bs.modal', function () {
+
+	document.getElementById('input-editar-kilataje').focus();
+
+});
+
 $('#guardar-editar-kilataje').on('click', (event) => {
 
 	event.preventDefault();
@@ -683,15 +696,24 @@ $('#guardar-editar-kilataje').on('click', (event) => {
 			dataType: 'JSON',
 			data: $('#form-edita-kilataje').serialize(),
 			success: function(response) {
+
+				if (response['bandera'] == 0) {
+					alert(response['mensaje']);
+					return;
+				}
+
 				$('#editar-kilataje-modal').modal('hide');
 				$('#snackbar').html('');
 				$('#snackbar').html(response['mensaje']);
+
 				var x = document.getElementById("snackbar");
 		  	x.className = "show";
+
 		  	setTimeout(function(){ 
 		  		x.className = x.className.replace("show", "");
 		  		window.location.reload(true);
-		  	}, 2000);
+		  	}, 1500);
+
 			},
 			error: function(error) {
 				console.log(error)
@@ -729,6 +751,20 @@ const editarCodigoModal = (codigo_id) => {
 
 }
 
+// Colocamos el cursor en el input para editar código de barras cada que se muestre el modal
+$('#editar-codigo-modal').on('shown.bs.modal', function () {
+
+	document.getElementById('input-editar-codigo').focus();
+	
+});
+
+// Colocamos el cursor en el input para editar categoría cada que se muestre el modal
+$('#editar-codigo-modal').on('shown.bs.modal', function () {
+
+	document.getElementById('input-editar-codigo-categoria').focus();
+
+});
+
 $('#guardar-editar-codigo').on('click', (event) => {
 
 	event.preventDefault();
@@ -739,15 +775,24 @@ $('#guardar-editar-codigo').on('click', (event) => {
 			dataType: 'JSON',
 			data: $('#form-edita-codigo').serialize(),
 			success: function(response) {
+
+				if (response['bandera'] == 0) {
+					alert(response['mensaje']);
+					return;
+				}
+
 				$('#editar-codigo-modal').modal('hide');
 				$('#snackbar').html('');
 				$('#snackbar').html(response['mensaje']);
+
 				var x = document.getElementById("snackbar");
 		  	x.className = "show";
+
 		  	setTimeout(function(){ 
 		  		x.className = x.className.replace("show", "");
 		  		window.location.reload(true);
-		  	}, 2000);
+		  	}, 1500);
+
 			},
 			error: function(error) {
 				console.log(error)
@@ -777,6 +822,13 @@ const editarUnidadModal = (unidad_id) => {
 
 }
 
+// Colocamos el cursor en el input para editar categoría cada que se muestre el modal
+$('#editar-unidad-modal').on('shown.bs.modal', function () {
+
+	document.getElementById('input-editar-unidad').focus();
+
+});
+
 // Función que envía el texto ingresado en la unidad de medida para convertir
 // en mayúscula la primer letra de cada palabra
 $('#input-editar-unidad').on('keyup', () => {
@@ -799,15 +851,24 @@ $('#guardar-editar-unidad').on('click', (event) => {
 			dataType: 'JSON',
 			data: $('#form-edita-unidad').serialize(),
 			success: function(response) {
+
+				if (response['bandera'] == 0) {
+					alert(response['mensaje']);
+					return;
+				}
+
 				$('#editar-unidad-modal').modal('hide');
 				$('#snackbar').html('');
 				$('#snackbar').html(response['mensaje']);
+
 				var x = document.getElementById("snackbar");
 		  	x.className = "show";
+
 		  	setTimeout(function(){ 
 		  		x.className = x.className.replace("show", "");
 		  		window.location.reload(true);
-		  	}, 2000);
+		  	}, 1500);
+
 			},
 			error: function(error) {
 				console.log(error)
@@ -843,6 +904,13 @@ const editarProveedorModal = (proveedor_id) => {
 
 }
 
+// Colocamos el cursor en el input para editar categoría cada que se muestre el modal
+$('#editar-proveedor-modal').on('shown.bs.modal', function () {
+
+	document.getElementById('input-editar-proveedor-nombre').focus();
+
+});
+
 // Función que envía el texto ingresado en el nombre del proveedor
 // para cambiar la primer letra de cada palabra en mayúscula
 $('#input-editar-proveedor-nombre').on('keyup', () => {
@@ -877,15 +945,24 @@ $('#guardar-editar-proveedor').on('click', (event) => {
 			dataType: 'JSON',
 			data: $('#form-edita-proveedor').serialize(),
 			success: function(response) {
+
+				if (response['bandera'] == 0) {
+					alert(response['mensaje']);
+					return;
+				}
+
 				$('#editar-proveedor-modal').modal('hide');
 				$('#snackbar').html('');
 				$('#snackbar').html(response['mensaje']);
+
 				var x = document.getElementById("snackbar");
 		  	x.className = "show";
+
 		  	setTimeout(function(){ 
 		  		x.className = x.className.replace("show", "");
 		  		window.location.reload(true);
-		  	}, 2000);
+		  	}, 1500);
+
 			},
 			error: function(error) {
 				console.log(error)
@@ -1153,15 +1230,19 @@ $('#guardar-eliminar-proveedor').on('click', (event) => {
 			dataType: 'JSON',
 			data: $('#form-eliminar-proveedor').serialize(),
 			success: function(response) {
+
 				$('#eliminar-proveedor-modal').modal('hide');
 				$('#snackbar').html('');
 				$('#snackbar').html(response['mensaje']);
+
 				var x = document.getElementById("snackbar");
 		  	x.className = "show";
+		  	
 		  	setTimeout(function(){ 
 		  		x.className = x.className.replace("show", "");
 		  		window.location.reload(true);
 		  	}, 1500);
+
 			},
 			error: function(error) {
 				console.log(error)

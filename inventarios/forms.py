@@ -21,7 +21,8 @@ class KilateForm(ModelForm):
 class BarcodeForm(ModelForm):
 	class Meta:
 		model = Barcode
-		fields = ['barcode']
+		# fields = ['barcode']
+		fields = '__all__'
 
 class UnitMeasurementForm(ModelForm):
 	class Meta:

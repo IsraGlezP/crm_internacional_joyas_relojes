@@ -454,53 +454,112 @@ def editar_categoria(request, pk):
 	return response
 
 def editar_kilataje(request, pk):
+
 	kilataje = Kilate.objects.get(kilate_id=pk)
 
 	if request.method == 'POST':
+
 		form = KilateForm(request.POST, instance=kilataje)
+
 		if form.is_valid():
-			form.save()
-			response = JsonResponse({'mensaje': 'Kilataje actualizado'})
+
+			try:
+				kilataje_encontrado = Kilate.objects.get(name__iexact=request.POST['name'])
+				mensaje = 'El kilataje '+kilataje_encontrado.name+' ya existe, favor de ingresar un kilataje distinto'
+				bandera = 0
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+			except Kilate.DoesNotExist:
+				form.save()
+				mensaje = 'Kilataje actualizado'
+				bandera = 1
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+
 			return response
-	print('FORM: ', form)
+
 	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
 	return response
 
 def editar_codigo(request, pk):
+
 	codigo = Barcode.objects.get(barcode_id=pk)
 
 	if request.method == 'POST':
-		codigo_nuevo = BarcodeForm(request.POST, instance=codigo)
-		codigo_nuevo.save()
-		response = JsonResponse({'mensaje': 'Código de Barras actualizado'})
+
+		form = BarcodeForm(request.POST, instance=codigo)
+
+		if form.is_valid():
+
+			try:
+				codigo_encontrado = Barcode.objects.get(
+					barcode=request.POST['barcode'],
+					category=request.POST['category'],
+					kilate=request.POST['kilate'])
+				mensaje = 'El código de barras '+codigo_encontrado.barcode+' para la categoría '+codigo_encontrado.category+' - '+codigo_encontrado.kilate+' ya existe, favor de ingresar un código de barras distinto'
+				bandera = 0
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+			except Kilate.DoesNotExist:
+				form.save()
+				mensaje = 'Código de barras actualizado'
+				bandera = 1
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+
 		return response
 
 	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
 	return response
 
 def editar_unidad(request, pk):
+
 	unidad = UnitMeasurement.objects.get(unit_measurement_id=pk)
 
 	if request.method == 'POST':
+
 		form = UnitMeasurementForm(request.POST, instance=unidad)
+
 		if form.is_valid():
-			form.save()
-			response = JsonResponse({'mensaje': 'Unidad de Medida actualizada'})
+
+			try:
+				unidad_encontrada = UnitMeasurement.objects.get(name__iexact=request.POST['name'])
+				mensaje = 'La unidad de medida '+unidad_encontrada.name+' ya existe, favor de ingresar una unidad de medida distinta'
+				bandera = 0
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+			except UnitMeasurement.DoesNotExist:
+				form.save()
+				mensaje = 'Unidad de Medida actualizada'
+				bandera = 1
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+
 			return response
-	print('FORM: ', form)
+
 	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
 	return response
 
 def editar_proveedor(request, pk):
+
 	proveedor = Vendor.objects.get(vendor_id=pk)
 
 	if request.method == 'POST':
+
 		form = VendorForm(request.POST, instance=proveedor)
+
 		if form.is_valid():
-			form.save()
-			response = JsonResponse({'mensaje': 'Proveedor actualizado'})
+
+			try:
+				proveedor_encontrado = Vendor.objects.get(
+					name__iexact=request.POST['name'],
+					phone=request.POST['phone'],
+					address=request.POST['address'])
+				mensaje = 'El proveedor '+proveedor_encontrado.name+' ya existe, favor de ingresar un proveedor distinto'
+				bandera = 0
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+			except Vendor.DoesNotExist:
+				form.save()
+				mensaje = 'Proveedor actualizado'
+				bandera = 1
+				response = JsonResponse({'mensaje': mensaje, 'bandera': bandera})
+
 			return response
-	print('FORM: ', form)
+
 	response = JsonResponse({'mensaje': 'Algo salió mal no puede ser'})
 	return response
 
